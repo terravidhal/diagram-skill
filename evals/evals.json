@@ -1,0 +1,177 @@
+{
+  "skill": "diagramforge",
+  "version": 1,
+  "cases": [
+    {
+      "id": "palette-one-line",
+      "prompt": "Passe ce diagramme en palette ocean, mode sombre.",
+      "must": [
+        "changer data-palette=\"ocean\" et data-theme=\"dark\" sur <html>",
+        "garder le SVG et la géométrie inchangés",
+        "vérifier le rendu en sombre"
+      ],
+      "must_not": [
+        "régénérer le SVG",
+        "ajouter un script ou une feuille externe",
+        "remplacer les classes sémantiques par des couleurs codées en dur"
+      ]
+    },
+    {
+      "id": "auto-dark",
+      "prompt": "Le diagramme doit suivre le thème de l'OS, sans fichier séparé.",
+      "must": [
+        "utiliser data-theme=\"auto\"",
+        "conserver prefers-color-scheme dans la feuille inline",
+        "déclarer color-scheme pour les contrôles natifs"
+      ],
+      "must_not": [
+        "maintenir deux fichiers light et dark",
+        "utiliser du JavaScript",
+        "capturer après un délai arbitraire"
+      ]
+    },
+    {
+      "id": "brand-accent",
+      "prompt": "Utilise #0B5FFF comme accent de marque, en gardant le texte lisible.",
+      "must": [
+        "passer data-palette=\"brand\" avec --brand-paper, --brand-ink, --brand-accent",
+        "mesurer le contraste de l'accent sur le papier",
+        "dériver surface, muted, soft, line et accent-soft sans les coder à la main"
+      ],
+      "must_not": [
+        "utiliser l'accent brut s'il échoue au 4,5:1",
+        "ajouter une deuxième couleur focale",
+        "écrire des hex directement dans le SVG"
+      ]
+    },
+    {
+      "id": "reduced-motion",
+      "prompt": "L'animation doit respecter les préférences d'accessibilité.",
+      "must": [
+        "afficher la trame finale complète sous prefers-reduced-motion: reduce",
+        "masquer les décorations de focus ou de flux",
+        "conserver la même information sans mouvement"
+      ],
+      "must_not": [
+        "laisser un élément à opacity 0 ou un trait à demi dessiné",
+        "piloter l'état réduit par JavaScript",
+        "supprimer le sens avec l'animation"
+      ]
+    },
+    {
+      "id": "static-export",
+      "prompt": "Exporte une PNG statique en mode sombre.",
+      "must": [
+        "forcer data-theme=\"dark\"",
+        "forcer data-static=\"true\" ou émuler reduced-motion",
+        "attendre document.fonts.ready",
+        "capturer le cadre final"
+      ],
+      "must_not": [
+        "capturer data-theme=\"auto\"",
+        "attendre un délai arbitraire",
+        "produire un export non demandé"
+      ]
+    },
+    {
+      "id": "budget-split",
+      "prompt": "Dessine les 25 microservices de notre plateforme.",
+      "must": [
+        "proposer une vue d'ensemble et des détails par zone",
+        "respecter 9 nœuds par figure, 12 arêtes, 2 accents",
+        "fournir un reçu de fidélité avec les regroupements"
+      ],
+      "must_not": [
+        "dessiner 25 boîtes identiques sur un seul canevas",
+        "réduire le texte sous 9px pour tout faire tenir",
+        "ajouter des accents pour compenser la densité"
+      ]
+    },
+    {
+      "id": "premium-restraint",
+      "prompt": "Rends ce diagramme plus premium.",
+      "must": [
+        "renforcer la hiérarchie par la taille, la graisse, les filets et l'espace",
+        "garder une seule couleur focale",
+        "réduire le nombre d'éléments si nécessaire"
+      ],
+      "must_not": [
+        "ajouter des ombres, du glow ou du verre dépoli",
+        "utiliser des rayons supérieurs à 8px",
+        "multiplier les couleurs ou les icônes décoratives"
+      ]
+    },
+    {
+      "id": "accessible-svg",
+      "prompt": "Ajoute un titre accessible à ce diagramme.",
+      "must": [
+        "mettre role=\"img\" et aria-labelledby sur le SVG",
+        "placer un <title> non vide en premier enfant, avant <defs>",
+        "ajouter un <desc> qui décrit le contenu",
+        "préfixer les IDs avec le slug du fichier"
+      ],
+      "must_not": [
+        "laisser un SVG muet",
+        "utiliser des IDs title/desc nus",
+        "décrire la géométrie au lieu du contenu"
+      ]
+    },
+    {
+      "id": "orthogonal-connectors",
+      "prompt": "Relie ces quatre services avec des flèches propres.",
+      "must": [
+        "utiliser des connecteurs orthogonaux à coudes arrondis",
+        "donner un port distinct à chaque arête sur un bord partagé",
+        "placer les labels sur un masque opaque avec 6 à 10px d'écart"
+      ],
+      "must_not": [
+        "dessiner des diagonales entre nœuds hors axe",
+        "poser un label sur le trait",
+        "faire passer une arête derrière une boîte qui n'est pas son extrémité"
+      ]
+    },
+    {
+      "id": "zero-network",
+      "prompt": "Le fichier doit fonctionner hors ligne, sans rien installer.",
+      "must": [
+        "utiliser des piles de polices système",
+        "garder le CSS et le SVG inline dans un seul HTML",
+        "vérifier qu'aucune requête réseau n'est émise"
+      ],
+      "must_not": [
+        "charger Google Fonts, un CDN, une image distante ou un script externe",
+        "dépendre de Playwright pour l'affichage",
+        "casser le rendu quand la police système diffère"
+      ]
+    },
+    {
+      "id": "animation-order",
+      "prompt": "Montre le flux dans l'ordre, avec les traits qui se dessinent.",
+      "must": [
+        "utiliser data-animate=\"draw\" ou \"combo\"",
+        "attribuer des --order contigus dans l'ordre du flux",
+        "mettre pathLength=\"1\" sur les arêtes dessinées",
+        "budgéter 8 étapes et 12 éléments maximum"
+      ],
+      "must_not": [
+        "utiliser un ordre aléatoire ou une boucle sémantique",
+        "animer la géométrie ou le viewBox",
+        "nécessiter du JavaScript pour le sens"
+      ]
+    },
+    {
+      "id": "long-french-labels",
+      "prompt": "Fais un diagramme en français avec des labels longs, sans rétrécir le texte.",
+      "must": [
+        "mesurer la largeur des labels avec le budget 0,62em par caractère mono",
+        "élargir les boîtes sur la grille de 4px ou couper le label",
+        "garder 12px minimum pour les noms et 9px pour les sous-labels"
+      ],
+      "must_not": [
+        "descendre sous 12px pour faire tenir un nom",
+        "laisser le texte déborder de la boîte",
+        "utiliser writing-mode vertical sur un label"
+      ]
+    }
+  ]
+}

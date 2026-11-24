@@ -1,0 +1,14 @@
+# Working clone of the reference skill (not vendored, not published)
+ref/
+
+# Dependencies
+node_modules/
+
+# Local harness
+.vague/
+
+# Build and capture scratch
+preview/
+tmp/
+*.log
+.DS_Store

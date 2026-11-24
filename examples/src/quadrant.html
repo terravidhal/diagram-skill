@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!-- variants: slate, ocean -->
+<html lang="en" data-theme="auto" data-palette="@@PALETTE@@">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Where to invest next — Diagramforge</title>
+  <style>
+/* @@THEMES@@ */
+/* @@BASE@@ */
+/* @@MOTION@@ */
+    .quad-divider { stroke: var(--line); stroke-width: var(--stroke-hair); stroke-dasharray: 4 4; }
+    .quad-label { fill: var(--ink); font-size: 11px; }
+    .quad-label--focal { fill: var(--accent); font-size: 12px; font-weight: 600; }
+    .quad-corner { fill: var(--soft); font-family: var(--font-tech); font-size: 8px; letter-spacing: .12em; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Quadrant · Product bets</p>
+    <h1>Where to invest next</h1>
+    <p class="lede">Impact against effort. The next bet is one item, not a coloured quadrant.</p>
+
+    <div class="diagram-container">
+      <svg class="diagram" data-slug="quadrant" data-animate="none"
+           viewBox="0 0 960 600" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-labelledby="quadrant-title quadrant-desc">
+        <title id="quadrant-title">Where to invest next</title>
+        <desc id="quadrant-desc">Nine product bets placed on impact and effort; Search is highlighted as the next bet.</desc>
+
+        <rect class="diagram-bg" width="960" height="600"/>
+
+        <line class="axis" x1="200" y1="96" x2="200" y2="480"/>
+        <line class="axis" x1="200" y1="480" x2="880" y2="480"/>
+        <line class="quad-divider" x1="200" y1="288" x2="880" y2="288"/>
+        <line class="quad-divider" x1="540" y1="96" x2="540" y2="480"/>
+
+        <text class="axis-label" x="200" y="72">IMPACT ↑</text>
+        <text class="axis-label" x="880" y="520" text-anchor="end">EFFORT →</text>
+        <text class="axis-label" x="200" y="520">LOW EFFORT</text>
+
+        <text class="quad-corner" x="216" y="116">QUICK WINS</text>
+        <text class="quad-corner" x="864" y="116" text-anchor="end">BIG BETS</text>
+        <text class="quad-corner" x="216" y="464">FILL-INS</text>
+        <text class="quad-corner" x="864" y="464" text-anchor="end">MONEY PIT</text>
+
+        <circle class="dot" data-item="exports" cx="310" cy="170" r="4"/>
+        <text class="quad-label" x="326" y="174">Exports</text>
+
+        <circle class="dot" data-item="auth" cx="470" cy="200" r="4"/>
+        <text class="quad-label" x="486" y="204">Auth</text>
+
+        <circle class="dot" data-item="cache" cx="600" cy="208" r="4"/>
+        <text class="quad-label" x="616" y="212">Cache</text>
+
+        <circle class="dot dot--focal" data-item="search" cx="680" cy="160" r="7"/>
+        <text class="quad-label--focal" x="696" y="165">Search</text>
+
+        <circle class="dot" data-item="sso" cx="820" cy="240" r="4"/>
+        <text class="quad-label" x="836" y="244">SSO</text>
+
+        <circle class="dot" data-item="reports" cx="430" cy="360" r="4"/>
+        <text class="quad-label" x="446" y="364">Reports</text>
+
+        <circle class="dot" data-item="billing" cx="760" cy="344" r="4"/>
+        <text class="quad-label" x="776" y="348">Billing</text>
+
+        <circle class="dot" data-item="sync" cx="340" cy="420" r="4"/>
+        <text class="quad-label" x="356" y="424">Sync</text>
+
+        <circle class="dot" data-item="mobile" cx="640" cy="420" r="4"/>
+        <text class="quad-label" x="656" y="424">Mobile</text>
+
+        <text class="annotation" x="200" y="568">Search is the next bet: high impact, moderate effort.</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

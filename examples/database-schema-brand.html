@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<!-- variants: brand, sand -->
+<html lang="en" data-theme="auto" data-palette="brand"
+      style="--brand-paper:#FFFFFF;--brand-ink:#141413;--brand-accent:#0B5FFF">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orders, payments, and customers — Diagramforge</title>
+  <style>
+/* Diagramforge theme sheet.
+   Set data-theme="auto|light|dark" and data-palette="paper|midnight|ocean|forest|
+   sand|slate|mono|contrast|brand" on <html>. Only the three base colours change;
+   every other role is derived with color-mix(). */
+
+:root {
+  color-scheme: light;
+
+  /* Base palette: warm paper. */
+  --paper: #F7F5EF;
+  --ink: #20242B;
+  --accent: #B4451F;
+
+  /* Brand inputs, overridden inline when data-palette="brand". */
+  --brand-paper: #F7F5EF;
+  --brand-ink: #20242B;
+  --brand-accent: #B4451F;
+
+  /* Derived roles. These recompute when --paper, --ink, or --accent change. */
+  --surface: color-mix(in srgb, var(--paper) 94%, var(--ink));
+  --mask: color-mix(in srgb, var(--ink) 1%, var(--paper));
+  --muted: color-mix(in srgb, var(--ink) 72%, var(--paper));
+  --soft: color-mix(in srgb, var(--ink) 67%, var(--paper));
+  --line: color-mix(in srgb, var(--ink) 14%, var(--paper));
+  --line-strong: color-mix(in srgb, var(--ink) 55%, var(--paper));
+  --accent-soft: color-mix(in srgb, var(--accent) 10%, var(--paper));
+  --accent-line: color-mix(in srgb, var(--accent) 55%, var(--paper));
+  --link: var(--accent);
+  --link-soft: color-mix(in srgb, var(--link) 10%, var(--paper));
+
+  /* Status roles, always paired with a word or a symbol. */
+  --ok: #2F7A4F;
+  --warn: #8A5A00;
+  --danger: #A62F25;
+
+  /* Multi-series charts only. */
+  --series-1: #5F7A4E;
+  --series-2: #3F6488;
+  --series-3: #8A642B;
+  --series-4: #8A5238;
+  --series-5: #5A5068;
+
+  /* Geometry. */
+  --grid: 4px;
+  --radius-sm: 2px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --stroke-hair: 0.8px;
+  --stroke-1: 1px;
+  --stroke-2: 1.25px;
+
+  /* Type stacks: no network request, no web-font dependency. */
+  --font-title: ui-serif, Georgia, "Times New Roman", serif;
+  --font-name: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-tech: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
+    monospace;
+}
+
+/* Operating-system dark, unless the document forces light. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #14171C;
+    --ink: #F2EFE7;
+    --accent: #F08A5D;
+    --ok: #7FD1A0;
+    --warn: #F2C14E;
+    --danger: #FF8A7A;
+    --series-1: #9CB48E;
+    --series-2: #82A7CC;
+    --series-3: #D8B074;
+    --series-4: #D09478;
+    --series-5: #A99BB8;
+  }
+}
+
+/* Explicit dark. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #14171C;
+  --ink: #F2EFE7;
+  --accent: #F08A5D;
+  --ok: #7FD1A0;
+  --warn: #F2C14E;
+  --danger: #FF8A7A;
+  --series-1: #9CB48E;
+  --series-2: #82A7CC;
+  --series-3: #D8B074;
+  --series-4: #D09478;
+  --series-5: #A99BB8;
+}
+
+/* Explicit light, even when the OS is dark. */
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+/* --------------------------------------------------------------------------
+   Palettes. Each block sets only paper / ink / accent. Derived roles follow.
+   -------------------------------------------------------------------------- */
+
+:root[data-palette="paper"] {
+  color-scheme: light;
+  --paper: #F7F5EF;
+  --ink: #20242B;
+  --accent: #B4451F;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="paper"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #14171C;
+    --ink: #F2EFE7;
+    --accent: #F08A5D;
+  }
+}
+:root[data-palette="paper"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #14171C;
+  --ink: #F2EFE7;
+  --accent: #F08A5D;
+}
+
+:root[data-palette="midnight"] {
+  color-scheme: light;
+  --paper: #F2F4F7;
+  --ink: #111827;
+  --accent: #4F46E5;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="midnight"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0B1020;
+    --ink: #E8ECF4;
+    --accent: #8B9CFF;
+  }
+}
+:root[data-palette="midnight"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0B1020;
+  --ink: #E8ECF4;
+  --accent: #8B9CFF;
+}
+
+:root[data-palette="ocean"] {
+  color-scheme: light;
+  --paper: #F2F7FA;
+  --ink: #102A43;
+  --accent: #0B6E99;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="ocean"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #081A26;
+    --ink: #E6F0F5;
+    --accent: #4FB3D9;
+  }
+}
+:root[data-palette="ocean"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #081A26;
+  --ink: #E6F0F5;
+  --accent: #4FB3D9;
+}
+
+:root[data-palette="forest"] {
+  color-scheme: light;
+  --paper: #F4F7F1;
+  --ink: #1D2A22;
+  --accent: #2F6B4F;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="forest"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0F1A14;
+    --ink: #E9F0EA;
+    --accent: #6FBF94;
+  }
+}
+:root[data-palette="forest"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0F1A14;
+  --ink: #E9F0EA;
+  --accent: #6FBF94;
+}
+
+:root[data-palette="sand"] {
+  color-scheme: light;
+  --paper: #FAF6EE;
+  --ink: #2B241B;
+  --accent: #A35A2A;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="sand"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #1C1712;
+    --ink: #F4EBDD;
+    --accent: #D89A63;
+  }
+}
+:root[data-palette="sand"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #1C1712;
+  --ink: #F4EBDD;
+  --accent: #D89A63;
+}
+
+:root[data-palette="slate"] {
+  color-scheme: light;
+  --paper: #F3F4F6;
+  --ink: #1F2937;
+  --accent: #3B5BDB;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="slate"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #111827;
+    --ink: #E5E7EB;
+    --accent: #7C9CFF;
+  }
+}
+:root[data-palette="slate"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #111827;
+  --ink: #E5E7EB;
+  --accent: #7C9CFF;
+}
+
+:root[data-palette="mono"] {
+  color-scheme: light;
+  --paper: #FAFAF8;
+  --ink: #111111;
+  --accent: #111111;
+  --accent-soft: color-mix(in srgb, var(--ink) 8%, var(--paper));
+  --accent-line: color-mix(in srgb, var(--ink) 45%, var(--paper));
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="mono"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0D0D0D;
+    --ink: #F5F5F5;
+    --accent: #F5F5F5;
+  }
+}
+:root[data-palette="mono"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0D0D0D;
+  --ink: #F5F5F5;
+  --accent: #F5F5F5;
+}
+
+:root[data-palette="contrast"] {
+  color-scheme: light;
+  --paper: #FFFFFF;
+  --ink: #000000;
+  --accent: #0033A0;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="contrast"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #000000;
+    --ink: #FFFFFF;
+    --accent: #66B2FF;
+  }
+}
+:root[data-palette="contrast"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #000000;
+  --ink: #FFFFFF;
+  --accent: #66B2FF;
+}
+
+/* Brand: three inline inputs, derived light and dark. */
+:root[data-palette="brand"] {
+  color-scheme: light;
+  --paper: var(--brand-paper);
+  --ink: var(--brand-ink);
+  --accent: var(--brand-accent);
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="brand"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: color-mix(in srgb, var(--brand-ink) 88%, #05070A);
+    --ink: color-mix(in srgb, var(--brand-paper) 92%, #FFFFFF);
+    --accent: color-mix(in srgb, var(--brand-accent) 72%, #FFFFFF);
+  }
+}
+:root[data-palette="brand"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: color-mix(in srgb, var(--brand-ink) 88%, #05070A);
+  --ink: color-mix(in srgb, var(--brand-paper) 92%, #FFFFFF);
+  --accent: color-mix(in srgb, var(--brand-accent) 72%, #FFFFFF);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  padding: 40px 24px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-name);
+}
+.frame { max-width: 1120px; margin: 0 auto; }
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-family: var(--font-tech);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 0 0 8px;
+  font-family: var(--font-title);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -.01em;
+}
+.lede {
+  max-width: 64ch;
+  margin: 0 0 24px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.diagram-container { width: 100%; overflow-x: auto; }
+svg.diagram { width: 100%; min-width: 960px; height: auto; display: block; }
+.diagram text { font-family: var(--font-name); }
+.diagram-bg { fill: var(--paper); }
+.node-mask { fill: var(--paper); }
+.node-box {
+  fill: var(--surface);
+  stroke: var(--line-strong);
+  stroke-width: var(--stroke-1);
+}
+.node-box--focal { fill: var(--accent-soft); stroke: var(--accent); stroke-width: var(--stroke-2); }
+.node-box--backend { fill: var(--surface); stroke: var(--line-strong); }
+.node-box--store { fill: color-mix(in srgb, var(--ink) 5%, var(--paper)); stroke: var(--muted); }
+.node-box--external { fill: color-mix(in srgb, var(--ink) 3%, var(--paper)); stroke: color-mix(in srgb, var(--ink) 30%, var(--paper)); }
+.node-box--input { fill: color-mix(in srgb, var(--muted) 10%, var(--paper)); stroke: var(--soft); }
+.node-box--optional { fill: color-mix(in srgb, var(--ink) 2%, var(--paper)); stroke: var(--line-strong); stroke-dasharray: 4 3; }
+.node-box--security { fill: color-mix(in srgb, var(--accent) 5%, var(--paper)); stroke: var(--accent-line); stroke-dasharray: 4 4; }
+.node-name { fill: var(--ink); font-size: 13px; font-weight: 600; }
+.node-tech { fill: var(--muted); font-family: var(--font-tech); font-size: 9px; }
+.node-tag { fill: var(--soft); font-family: var(--font-tech); font-size: 8px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+.node-tag-box { fill: none; stroke: var(--line-strong); stroke-width: var(--stroke-hair); }
+.edge { fill: none; stroke: var(--muted); stroke-width: var(--stroke-1); }
+.edge--accent { stroke: var(--accent); stroke-width: var(--stroke-2); }
+.edge--link { stroke: var(--link); }
+.edge--dashed { stroke-dasharray: 4 3; }
+.edge--hair { stroke: var(--line); stroke-width: var(--stroke-hair); }
+.edge-label { fill: var(--muted); font-family: var(--font-tech); font-size: 8px; letter-spacing: .06em; }
+.label-mask { fill: var(--paper); }
+.label-mask--zone { fill: var(--mask); }
+.zone { fill: color-mix(in srgb, var(--ink) 1%, transparent); stroke: var(--line); stroke-width: var(--stroke-hair); }
+.zone-label { fill: var(--soft); font-family: var(--font-tech); font-size: 8px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+.legend-rule { stroke: var(--line); stroke-width: var(--stroke-hair); }
+.legend-label { fill: var(--muted); font-family: var(--font-tech); font-size: 8px; letter-spacing: .12em; text-transform: uppercase; }
+.legend-item-text { fill: var(--muted); font-family: var(--font-tech); font-size: 8px; }
+.marker-muted { fill: var(--muted); }
+.marker-accent { fill: var(--accent); }
+.marker-link { fill: var(--link); }
+.marker-open { fill: none; stroke: var(--muted); stroke-width: 1.2; }
+.lifeline { stroke: color-mix(in srgb, var(--ink) 22%, var(--paper)); stroke-width: 1; stroke-dasharray: 3 3; }
+.stem { stroke: color-mix(in srgb, var(--ink) 22%, var(--paper)); stroke-width: 1; }
+.activation { fill: color-mix(in srgb, var(--ink) 6%, var(--paper)); stroke: var(--muted); stroke-width: var(--stroke-hair); }
+.entity-head { fill: var(--surface); stroke: var(--line-strong); stroke-width: var(--stroke-1); }
+.entity-rule { stroke: var(--line); stroke-width: var(--stroke-hair); }
+.field-name { fill: var(--ink); font-size: 10px; }
+.field-type { fill: var(--soft); font-family: var(--font-tech); font-size: 8px; }
+.field-key { fill: var(--muted); font-family: var(--font-tech); font-size: 8px; font-weight: 600; }
+.axis { stroke: var(--line-strong); stroke-width: var(--stroke-1); }
+.axis-label { fill: var(--muted); font-family: var(--font-tech); font-size: 8px; letter-spacing: .1em; text-transform: uppercase; }
+.tick { stroke: var(--line); stroke-width: var(--stroke-hair); }
+.dot { fill: var(--muted); }
+.dot--focal { fill: var(--accent); }
+.bar { fill: var(--muted); }
+.bar--focal { fill: var(--accent); }
+.series-1 { fill: var(--series-1); stroke: var(--series-1); }
+.series-2 { fill: var(--series-2); stroke: var(--series-2); }
+.series-3 { fill: var(--series-3); stroke: var(--series-3); }
+.series-4 { fill: var(--series-4); stroke: var(--series-4); }
+.series-5 { fill: var(--series-5); stroke: var(--series-5); }
+.status-ok { fill: var(--ok); }
+.status-warn { fill: var(--warn); }
+.status-danger { fill: var(--danger); }
+.annotation { fill: var(--ink); font-family: var(--font-title); font-size: 14px; font-style: italic; }
+.focus-halo { display: none; fill: var(--accent); opacity: .2; }
+[data-animate="focus"] .focus-halo { display: block; }
+.flow-token { display: none; fill: var(--accent); }
+[data-animate="flow"] .flow-token { display: block; }
+@media (max-width: 720px) {
+  body { padding: 24px 16px; }
+  .lede { font-size: 13px; }
+}
+@media print {
+  body { padding: 0; }
+  .diagram-container { overflow-x: visible; }
+  svg.diagram { min-width: 0; }
+}
+/* Diagramforge motion sheet.
+   Optional. Set data-animate="none|draw|reveal|flow|focus|combo" on the root SVG.
+   The diagram is complete before any animation: motion is decorative. */
+
+:root {
+  --dur: 700ms;
+  --stagger: 160ms;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --flow-dur: 4s;
+  --focus-dur: 2.4s;
+}
+
+/* draw: a stroke draws from its start to its end. */
+[data-animate="draw"] .edge,
+[data-animate="combo"] .edge {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: df-draw var(--dur) var(--ease) both;
+  animation-delay: calc(var(--order, 0) * var(--stagger));
+}
+@keyframes df-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* reveal: items appear in narrative order with a small rise. */
+[data-animate="reveal"] .node,
+[data-animate="combo"] .node {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: df-reveal var(--dur) var(--ease) both;
+  animation-delay: calc(var(--order, 0) * var(--stagger));
+}
+@keyframes df-reveal {
+  to { opacity: 1; transform: none; }
+}
+
+/* flow: dashes circulate on explicitly marked edges. */
+[data-animate="flow"] .edge[data-flow] {
+  stroke-dasharray: 6 10;
+  animation: df-flow var(--flow-dur) linear infinite;
+}
+@keyframes df-flow {
+  to { stroke-dashoffset: -64; }
+}
+
+/* focus: one quiet halo on the focal node. */
+[data-animate="focus"] .focus-halo {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: df-focus var(--focus-dur) ease-in-out infinite;
+}
+@keyframes df-focus {
+  0%, 100% { opacity: .15; transform: scale(.98); }
+  50%      { opacity: .55; transform: scale(1.04); }
+}
+
+/* The complete static frame. */
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] *,
+  [data-animate] *::before,
+  [data-animate] *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  [data-animate] .edge { stroke-dashoffset: 0 !important; }
+  [data-animate="draw"] .edge:not(.edge--dashed),
+  [data-animate="combo"] .edge:not(.edge--dashed),
+  [data-animate="flow"] .edge[data-flow]:not(.edge--dashed) { stroke-dasharray: none !important; }
+  [data-animate] .node { opacity: 1 !important; transform: none !important; }
+  [data-animate] .focus-halo,
+  [data-animate] .flow-token { display: none !important; }
+}
+
+[data-static="true"] *,
+[data-static="true"] *::before,
+[data-static="true"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+[data-static="true"] .edge { stroke-dashoffset: 0 !important; }
+[data-static="true"] .edge[data-flow]:not(.edge--dashed) { stroke-dasharray: none !important; }
+[data-static="true"] .node { opacity: 1 !important; transform: none !important; }
+[data-static="true"] .focus-halo,
+[data-static="true"] .flow-token { display: none !important; }
+
+@media print {
+  [data-animate] *,
+  [data-animate] *::before,
+  [data-animate] *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  [data-animate] .edge { stroke-dashoffset: 0 !important; }
+  [data-animate="draw"] .edge:not(.edge--dashed),
+  [data-animate="combo"] .edge:not(.edge--dashed),
+  [data-animate="flow"] .edge[data-flow]:not(.edge--dashed) { stroke-dasharray: none !important; }
+  [data-animate] .node { opacity: 1 !important; transform: none !important; }
+  [data-animate] .focus-halo,
+  [data-animate] .flow-token { display: none !important; }
+}
+    .entity-head--focal { fill: var(--accent-soft); stroke: var(--accent); }
+    .entity-head-fill { fill: var(--surface); stroke: none; }
+    .entity-head-fill--focal { fill: var(--accent-soft); stroke: none; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">ERD · Commerce</p>
+    <h1>Orders, payments, and customers</h1>
+    <p class="lede">Three tables, two one-to-many relationships, and a brand accent supplied in one line. The key columns carry the join.</p>
+
+    <div class="diagram-container">
+      <svg class="diagram" data-slug="erd" data-animate="none"
+           viewBox="0 0 960 360" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-labelledby="erd-title erd-desc">
+        <title id="erd-title">Orders, payments, and customers</title>
+        <desc id="erd-desc">Customers have many orders, and orders have many payments; primary and foreign keys are marked on each table.</desc>
+
+        <defs>
+          <marker id="erd-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-muted" points="0 0, 8 3, 0 6"/>
+          </marker>
+          <marker id="erd-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-accent" points="0 0, 8 3, 0 6"/>
+          </marker>
+        </defs>
+
+        <rect class="diagram-bg" width="960" height="360"/>
+
+        <path class="edge" d="M 304,112 H 328 Q 336,112 336,120 V 128 Q 336,136 344,136 H 360" marker-end="url(#erd-arrow)"/>
+        <path class="edge edge--accent" d="M 616,112 H 644 Q 652,112 652,120 V 128 Q 652,136 660,136 H 688" marker-end="url(#erd-arrow-accent)"/>
+
+        <g class="edge-label-group">
+          <rect class="label-mask" x="316" y="92" width="32" height="12" rx="2"/>
+          <text class="edge-label" x="332" y="101" text-anchor="middle">1:N</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="636" y="92" width="32" height="12" rx="2"/>
+          <text class="edge-label" x="652" y="101" text-anchor="middle">1:N</text>
+        </g>
+
+        <g class="entity" data-node="customers">
+          <rect class="node-mask" x="64" y="64" width="240" height="116" rx="6"/>
+          <rect class="node-box" x="64" y="64" width="240" height="116" rx="6"/>
+          <rect class="entity-head" x="64" y="64" width="240" height="36" rx="6"/>
+          <rect class="entity-head-fill" x="64" y="88" width="240" height="12"/>
+          <text class="node-name" x="80" y="88">customers</text>
+          <line class="entity-rule" x1="64" y1="100" x2="304" y2="100"/>
+          <text class="field-key" x="80" y="117">PK</text>
+          <text class="field-name" x="104" y="117">id</text>
+          <text class="field-type" x="288" y="117" text-anchor="end">uuid</text>
+          <text class="field-name" x="80" y="141">email</text>
+          <text class="field-type" x="288" y="141" text-anchor="end">text</text>
+          <text class="field-name" x="80" y="165">created_at</text>
+          <text class="field-type" x="288" y="165" text-anchor="end">timestamptz</text>
+        </g>
+
+        <g class="entity" data-node="orders">
+          <rect class="node-mask" x="360" y="64" width="256" height="164" rx="6"/>
+          <rect class="node-box" x="360" y="64" width="256" height="164" rx="6"/>
+          <rect class="entity-head entity-head--focal" x="360" y="64" width="256" height="36" rx="6"/>
+          <rect class="entity-head-fill entity-head-fill--focal" x="360" y="88" width="256" height="12"/>
+          <text class="node-name" x="376" y="88">orders</text>
+          <line class="entity-rule" x1="360" y1="100" x2="616" y2="100"/>
+          <text class="field-key" x="376" y="117">PK</text>
+          <text class="field-name" x="400" y="117">id</text>
+          <text class="field-type" x="600" y="117" text-anchor="end">uuid</text>
+          <text class="field-key" x="376" y="141">FK</text>
+          <text class="field-name" x="400" y="141">customer_id</text>
+          <text class="field-type" x="600" y="141" text-anchor="end">uuid</text>
+          <text class="field-name" x="376" y="165">total</text>
+          <text class="field-type" x="600" y="165" text-anchor="end">int4</text>
+          <text class="field-name" x="376" y="189">status</text>
+          <text class="field-type" x="600" y="189" text-anchor="end">text</text>
+          <text class="field-name" x="376" y="213">created_at</text>
+          <text class="field-type" x="600" y="213" text-anchor="end">timestamptz</text>
+        </g>
+
+        <g class="entity" data-node="payments">
+          <rect class="node-mask" x="688" y="64" width="208" height="140" rx="6"/>
+          <rect class="node-box" x="688" y="64" width="208" height="140" rx="6"/>
+          <rect class="entity-head" x="688" y="64" width="208" height="36" rx="6"/>
+          <rect class="entity-head-fill" x="688" y="88" width="208" height="12"/>
+          <text class="node-name" x="704" y="88">payments</text>
+          <line class="entity-rule" x1="688" y1="100" x2="896" y2="100"/>
+          <text class="field-key" x="704" y="117">PK</text>
+          <text class="field-name" x="728" y="117">id</text>
+          <text class="field-type" x="880" y="117" text-anchor="end">uuid</text>
+          <text class="field-key" x="704" y="141">FK</text>
+          <text class="field-name" x="728" y="141">order_id</text>
+          <text class="field-type" x="880" y="141" text-anchor="end">uuid</text>
+          <text class="field-name" x="704" y="165">provider_ref</text>
+          <text class="field-type" x="880" y="165" text-anchor="end">text</text>
+          <text class="field-name" x="704" y="189">captured_at</text>
+          <text class="field-type" x="880" y="189" text-anchor="end">timestamptz</text>
+        </g>
+
+        <line class="legend-rule" x1="64" y1="272" x2="896" y2="272"/>
+        <text class="legend-label" x="64" y="292">KEYS</text>
+        <text class="field-key" x="128" y="292">PK</text>
+        <text class="legend-item-text" x="148" y="292">primary key</text>
+        <text class="field-key" x="248" y="292">FK</text>
+        <text class="legend-item-text" x="268" y="292">foreign key</text>
+        <text class="legend-item-text" x="400" y="292">cardinality is written at both ends</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!-- variants: midnight, paper -->
+<html lang="en" data-theme="auto" data-palette="@@PALETTE@@">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authentication retry path — Diagramforge</title>
+  <style>
+/* @@THEMES@@ */
+/* @@BASE@@ */
+/* @@MOTION@@ */
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Flowchart · Authentication</p>
+    <h1>Authentication retry path</h1>
+    <p class="lede">One decision, one recovery loop, two terminal outcomes. The focus halo marks the retry without changing the static meaning.</p>
+
+    <div class="diagram-container">
+      <svg class="diagram" data-slug="auth" data-animate="focus"
+           viewBox="0 0 960 600" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-labelledby="auth-title auth-desc">
+        <title id="auth-title">Authentication retry path</title>
+        <desc id="auth-desc">A request is checked for authentication; a valid token loads the cart and returns 201, while an expired token refreshes once and retries, then fails with 401.</desc>
+
+        <defs>
+          <marker id="auth-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-muted" points="0 0, 8 3, 0 6"/>
+          </marker>
+          <marker id="auth-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-accent" points="0 0, 8 3, 0 6"/>
+          </marker>
+        </defs>
+
+        <rect class="diagram-bg" width="960" height="600"/>
+
+        <line class="edge" x1="480" y1="120" x2="480" y2="140" marker-end="url(#auth-arrow)"/>
+
+        <path class="edge" d="M 380,192 H 368 Q 360,192 360,200 V 272" marker-end="url(#auth-arrow)"/>
+        <path class="edge" d="M 580,192 H 672 Q 680,192 680,200 V 272" marker-end="url(#auth-arrow)"/>
+        <line class="edge" x1="680" y1="328" x2="680" y2="384" marker-end="url(#auth-arrow)"/>
+        <path class="edge" d="M 600,412 H 488 Q 480,412 480,404 V 244" marker-end="url(#auth-arrow)"/>
+        <line class="edge" x1="360" y1="328" x2="360" y2="384" marker-end="url(#auth-arrow)"/>
+        <line class="edge" x1="360" y1="440" x2="360" y2="480" marker-end="url(#auth-arrow)"/>
+        <line class="edge edge--dashed" x1="680" y1="440" x2="680" y2="480" marker-end="url(#auth-arrow)"/>
+
+        <g class="edge-label-group">
+          <rect class="label-mask" x="368" y="244" width="40" height="12" rx="2"/>
+          <text class="edge-label" x="376" y="253">YES</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="688" y="232" width="32" height="12" rx="2"/>
+          <text class="edge-label" x="696" y="241">NO</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="688" y="344" width="64" height="12" rx="2"/>
+          <text class="edge-label" x="696" y="353">EXPIRED</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="488" y="320" width="48" height="12" rx="2"/>
+          <text class="edge-label" x="496" y="329">ONCE</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="368" y="344" width="40" height="12" rx="2"/>
+          <text class="edge-label" x="376" y="353">CART</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="368" y="448" width="32" height="12" rx="2"/>
+          <text class="edge-label" x="376" y="457">OK</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="688" y="448" width="40" height="12" rx="2"/>
+          <text class="edge-label" x="696" y="457">FAIL</text>
+        </g>
+
+        <g class="node" data-node="request">
+          <rect class="node-mask" x="400" y="64" width="160" height="56" rx="6"/>
+          <rect class="node-box node-box--input" x="400" y="64" width="160" height="56" rx="6"/>
+          <text class="node-tag" x="412" y="82">ENTRY</text>
+          <text class="node-name" x="480" y="102" text-anchor="middle">Request</text>
+        </g>
+
+        <g class="node" data-node="decision">
+          <polygon class="node-mask" points="480,140 584,192 480,244 376,192"/>
+          <polygon class="node-box" points="480,144 580,192 480,240 380,192"/>
+          <text class="node-name" x="480" y="196" text-anchor="middle">Authenticated?</text>
+        </g>
+
+        <g class="node" data-node="load-cart">
+          <rect class="node-mask" x="280" y="272" width="160" height="56" rx="6"/>
+          <rect class="node-box" x="280" y="272" width="160" height="56" rx="6"/>
+          <text class="node-tag" x="292" y="290">BACKEND</text>
+          <text class="node-name" x="360" y="310" text-anchor="middle">Load cart</text>
+        </g>
+
+        <g class="node" data-node="refresh">
+          <rect class="node-mask" x="600" y="272" width="160" height="56" rx="6"/>
+          <rect class="node-box" x="600" y="272" width="160" height="56" rx="6"/>
+          <text class="node-tag" x="612" y="290">BACKEND</text>
+          <text class="node-name" x="680" y="310" text-anchor="middle">Refresh token</text>
+        </g>
+
+        <g class="node" data-node="retry" data-focus="true">
+          <rect class="focus-halo" x="592" y="372" width="176" height="72" rx="8"/>
+          <rect class="node-mask" x="600" y="384" width="160" height="56" rx="6"/>
+          <rect class="node-box" x="600" y="384" width="160" height="56" rx="6"/>
+          <text class="node-tag" x="612" y="402">FOCUS</text>
+          <text class="node-name" x="680" y="422" text-anchor="middle">Retry once</text>
+        </g>
+
+        <g class="node" data-node="checkout">
+          <rect class="node-mask" x="280" y="384" width="160" height="56" rx="6"/>
+          <rect class="node-box" x="280" y="384" width="160" height="56" rx="6"/>
+          <text class="node-tag" x="292" y="402">BACKEND</text>
+          <text class="node-name" x="360" y="422" text-anchor="middle">Checkout</text>
+        </g>
+
+        <g class="node" data-node="created">
+          <rect class="node-mask" x="280" y="480" width="160" height="56" rx="6"/>
+          <rect class="node-box node-box--backend" x="280" y="480" width="160" height="56" rx="6"/>
+          <text class="node-tag" x="292" y="498">SUCCESS</text>
+          <text class="node-name" x="360" y="518" text-anchor="middle">201 Created</text>
+        </g>
+
+        <g class="node" data-node="unauthorized">
+          <rect class="node-mask" x="600" y="480" width="160" height="56" rx="6"/>
+          <rect class="node-box node-box--focal" x="600" y="480" width="160" height="56" rx="6"/>
+          <text class="node-tag" x="612" y="498">FAILURE</text>
+          <text class="node-name" x="680" y="518" text-anchor="middle">401 Unauthorized</text>
+        </g>
+
+        <text class="annotation" x="64" y="568">Focus: the retry is the only recovery path.</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

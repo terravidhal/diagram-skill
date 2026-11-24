@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!-- variants: midnight, forest -->
+<html lang="en" data-theme="auto" data-palette="@@PALETTE@@">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pipeline with a quality gate — Diagramforge</title>
+  <style>
+/* @@THEMES@@ */
+/* @@BASE@@ */
+/* @@MOTION@@ */
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Data pipeline · Flow</p>
+    <h1>Pipeline with a quality gate</h1>
+    <p class="lede">Four steps, one quality gate. The dashes circulate on the active path and stop as a solid frame when motion is reduced.</p>
+
+    <div class="diagram-container">
+      <svg class="diagram" data-slug="pipeline" data-animate="flow"
+           viewBox="0 0 960 360" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-labelledby="pipeline-title pipeline-desc">
+        <title id="pipeline-title">Pipeline with a quality gate</title>
+        <desc id="pipeline-desc">Events move through a raw tier, a validation gate, a model tier, and a dashboard; the validation step is the focal point.</desc>
+
+        <defs>
+          <marker id="pipeline-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-muted" points="0 0, 8 3, 0 6"/>
+          </marker>
+        </defs>
+
+        <rect class="diagram-bg" width="960" height="360"/>
+
+        <line class="edge" data-flow="true" x1="164" y1="132" x2="220" y2="132" marker-end="url(#pipeline-arrow)"/>
+        <line class="edge" data-flow="true" x1="356" y1="132" x2="412" y2="132" marker-end="url(#pipeline-arrow)"/>
+        <line class="edge" data-flow="true" x1="548" y1="132" x2="604" y2="132" marker-end="url(#pipeline-arrow)"/>
+        <line class="edge" data-flow="true" x1="740" y1="132" x2="796" y2="132" marker-end="url(#pipeline-arrow)"/>
+
+        <g class="edge-label-group">
+          <rect class="label-mask" x="172" y="112" width="40" height="12" rx="2"/>
+          <text class="edge-label" x="192" y="121" text-anchor="middle">EVENTS</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="360" y="112" width="48" height="12" rx="2"/>
+          <text class="edge-label" x="384" y="121" text-anchor="middle">VALIDATE</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="552" y="112" width="48" height="12" rx="2"/>
+          <text class="edge-label" x="576" y="121" text-anchor="middle">MODEL</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="744" y="112" width="40" height="12" rx="2"/>
+          <text class="edge-label" x="764" y="121" text-anchor="middle">SERVE</text>
+        </g>
+
+        <g class="node" data-node="events">
+          <rect class="node-mask" x="28" y="100" width="136" height="64" rx="6"/>
+          <rect class="node-box node-box--input" x="28" y="100" width="136" height="64" rx="6"/>
+          <text class="node-tag" x="40" y="118">SOURCE</text>
+          <text class="node-name" x="96" y="136" text-anchor="middle">Events</text>
+          <text class="node-tech" x="96" y="152" text-anchor="middle">webhook</text>
+        </g>
+
+        <g class="node" data-node="raw">
+          <rect class="node-mask" x="220" y="100" width="136" height="64" rx="6"/>
+          <rect class="node-box node-box--store" x="220" y="100" width="136" height="64" rx="6"/>
+          <text class="node-tag" x="232" y="118">TIER 1</text>
+          <text class="node-name" x="288" y="136" text-anchor="middle">Raw</text>
+          <text class="node-tech" x="288" y="152" text-anchor="middle">append-only</text>
+        </g>
+
+        <g class="node" data-node="validate">
+          <rect class="node-mask" x="412" y="100" width="136" height="64" rx="6"/>
+          <rect class="node-box node-box--focal" x="412" y="100" width="136" height="64" rx="6"/>
+          <text class="node-tag" x="424" y="118">GATE</text>
+          <text class="node-name" x="480" y="136" text-anchor="middle">Validate</text>
+          <text class="node-tech" x="480" y="152" text-anchor="middle">schema · SLA</text>
+        </g>
+
+        <g class="node" data-node="model">
+          <rect class="node-mask" x="604" y="100" width="136" height="64" rx="6"/>
+          <rect class="node-box node-box--store" x="604" y="100" width="136" height="64" rx="6"/>
+          <text class="node-tag" x="616" y="118">TIER 3</text>
+          <text class="node-name" x="672" y="136" text-anchor="middle">Model</text>
+          <text class="node-tech" x="672" y="152" text-anchor="middle">daily · v4</text>
+        </g>
+
+        <g class="node" data-node="dashboard">
+          <rect class="node-mask" x="796" y="100" width="136" height="64" rx="6"/>
+          <rect class="node-box node-box--backend" x="796" y="100" width="136" height="64" rx="6"/>
+          <text class="node-tag" x="808" y="118">CONSUMER</text>
+          <text class="node-name" x="864" y="136" text-anchor="middle">Dashboard</text>
+          <text class="node-tech" x="864" y="152" text-anchor="middle">read-only</text>
+        </g>
+
+        <text class="annotation" x="28" y="304">Flow: dashes circulate on the active path; reduced motion shows a solid frame.</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

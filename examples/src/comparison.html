@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!-- variants: mono, ocean -->
+<html lang="en" data-theme="auto" data-palette="@@PALETTE@@">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monolith to services: what changed</title>
+  <style>
+/* @@THEMES@@ */
+/* @@BASE@@ */
+/* @@MOTION@@ */
+    .delta-tag { fill: var(--accent); font-family: var(--font-tech); font-size: 8px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Before / after · Architecture</p>
+    <h1>Monolith to services</h1>
+    <p class="lede">Four dimensions changed between v1 and v2. Each row is one decision, not a feature list.</p>
+
+    <div class="diagram-container">
+      <svg class="diagram" data-slug="delta" data-animate="reveal"
+           viewBox="0 0 960 560" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-labelledby="delta-title delta-desc">
+        <title id="delta-title">Monolith to services: what changed</title>
+        <desc id="delta-desc">The v1 monolith used one deployable, a shared database, weekly releases, and a hero on call; v2 uses five services, a database per service, daily releases, and team ownership.</desc>
+
+        <defs>
+          <marker id="delta-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-muted" points="0 0, 8 3, 0 6"/>
+          </marker>
+          <marker id="delta-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-accent" points="0 0, 8 3, 0 6"/>
+          </marker>
+        </defs>
+
+        <rect class="diagram-bg" width="960" height="560"/>
+
+        <rect class="zone" x="32" y="72" width="360" height="424" rx="8"/>
+        <g class="zone-label-group">
+          <rect class="label-mask label-mask--zone" x="48" y="80" width="112" height="12" rx="2"/>
+          <text class="zone-label" x="104" y="89" text-anchor="middle">V1 · MONOLITH</text>
+        </g>
+
+        <rect class="zone" x="568" y="72" width="360" height="424" rx="8"/>
+        <g class="zone-label-group">
+          <rect class="label-mask label-mask--zone" x="584" y="80" width="112" height="12" rx="2"/>
+          <text class="zone-label" x="640" y="89" text-anchor="middle">V2 · SERVICES</text>
+        </g>
+
+        <line class="edge" x1="368" y1="156" x2="592" y2="156" marker-end="url(#delta-arrow)"/>
+        <line class="edge edge--accent" x1="368" y1="236" x2="592" y2="236" marker-end="url(#delta-arrow-accent)"/>
+        <line class="edge" x1="368" y1="316" x2="592" y2="316" marker-end="url(#delta-arrow)"/>
+        <line class="edge" x1="368" y1="396" x2="592" y2="396" marker-end="url(#delta-arrow)"/>
+
+        <g class="edge-label-group">
+          <rect class="label-mask" x="420" y="140" width="64" height="12" rx="2"/>
+          <text class="edge-label" x="452" y="149" text-anchor="middle">SPLIT</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="420" y="220" width="64" height="12" rx="2"/>
+          <text class="edge-label" x="452" y="229" text-anchor="middle">ISOLATE</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="420" y="300" width="64" height="12" rx="2"/>
+          <text class="edge-label" x="452" y="309" text-anchor="middle">SHIP</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="420" y="380" width="64" height="12" rx="2"/>
+          <text class="edge-label" x="452" y="389" text-anchor="middle">OWN</text>
+        </g>
+
+        <g class="node" data-node="v1-runtime" style="--order:0">
+          <rect class="node-mask" x="56" y="128" width="312" height="56" rx="6"/>
+          <rect class="node-box" x="56" y="128" width="312" height="56" rx="6"/>
+          <text class="node-tag" x="72" y="146">RUNTIME</text>
+          <text class="node-name" x="72" y="168">One deployable</text>
+        </g>
+        <g class="node" data-node="v1-data" style="--order:1">
+          <rect class="node-mask" x="56" y="208" width="312" height="56" rx="6"/>
+          <rect class="node-box" x="56" y="208" width="312" height="56" rx="6"/>
+          <text class="node-tag" x="72" y="226">DATA</text>
+          <text class="node-name" x="72" y="248">Shared database</text>
+        </g>
+        <g class="node" data-node="v1-release" style="--order:2">
+          <rect class="node-mask" x="56" y="288" width="312" height="56" rx="6"/>
+          <rect class="node-box" x="56" y="288" width="312" height="56" rx="6"/>
+          <text class="node-tag" x="72" y="306">RELEASE</text>
+          <text class="node-name" x="72" y="328">Weekly, all at once</text>
+        </g>
+        <g class="node" data-node="v1-oncall" style="--order:3">
+          <rect class="node-mask" x="56" y="368" width="312" height="56" rx="6"/>
+          <rect class="node-box" x="56" y="368" width="312" height="56" rx="6"/>
+          <text class="node-tag" x="72" y="386">ON-CALL</text>
+          <text class="node-name" x="72" y="408">One hero for everything</text>
+        </g>
+
+        <g class="node" data-node="v2-runtime" style="--order:4">
+          <rect class="node-mask" x="592" y="128" width="312" height="56" rx="6"/>
+          <rect class="node-box" x="592" y="128" width="312" height="56" rx="6"/>
+          <text class="node-tag" x="608" y="146">RUNTIME</text>
+          <text class="node-name" x="608" y="168">Five services</text>
+        </g>
+        <g class="node" data-node="v2-data" style="--order:5">
+          <rect class="node-mask" x="592" y="208" width="312" height="56" rx="6"/>
+          <rect class="node-box node-box--focal" x="592" y="208" width="312" height="56" rx="6"/>
+          <text class="node-tag" x="608" y="226">DATA</text>
+          <text class="node-name" x="608" y="248">Database per service</text>
+        </g>
+        <g class="node" data-node="v2-release" style="--order:6">
+          <rect class="node-mask" x="592" y="288" width="312" height="56" rx="6"/>
+          <rect class="node-box" x="592" y="288" width="312" height="56" rx="6"/>
+          <text class="node-tag" x="608" y="306">RELEASE</text>
+          <text class="node-name" x="608" y="328">Daily, independently</text>
+        </g>
+        <g class="node" data-node="v2-oncall" style="--order:7">
+          <rect class="node-mask" x="592" y="368" width="312" height="56" rx="6"/>
+          <rect class="node-box" x="592" y="368" width="312" height="56" rx="6"/>
+          <text class="node-tag" x="608" y="386">ON-CALL</text>
+          <text class="node-name" x="608" y="408">Owning team</text>
+        </g>
+
+        <text class="annotation" x="56" y="536">The load-bearing change is data isolation: without it, five services still fail as one.</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

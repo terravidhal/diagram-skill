@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!-- variants: ocean, slate -->
+<html lang="en" data-theme="auto" data-palette="@@PALETTE@@">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event flow from sources to consumers</title>
+  <style>
+/* @@THEMES@@ */
+/* @@BASE@@ */
+/* @@MOTION@@ */
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Data flow · Analytics</p>
+    <h1>Event flow from sources to consumers</h1>
+    <p class="lede">Two clients converge on one collector, pass a schema gate, land in the warehouse, and fan out to two consumers. Stages appear in flow order.</p>
+
+    <div class="diagram-container">
+      <svg class="diagram" data-slug="dataflow" data-animate="reveal"
+           viewBox="0 0 960 480" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-labelledby="dataflow-title dataflow-desc">
+        <title id="dataflow-title">Event flow from sources to consumers</title>
+        <desc id="dataflow-desc">Web and mobile clients send events to a collector, which validates the schema, writes to a warehouse, and feeds a BI tool and an activation service.</desc>
+
+        <defs>
+          <marker id="dataflow-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-muted" points="0 0, 8 3, 0 6"/>
+          </marker>
+          <marker id="dataflow-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-accent" points="0 0, 8 3, 0 6"/>
+          </marker>
+        </defs>
+
+        <rect class="diagram-bg" width="960" height="480"/>
+
+        <rect class="zone" x="40" y="56" width="208" height="192" rx="8"/>
+        <g class="zone-label-group">
+          <rect class="label-mask label-mask--zone" x="52" y="64" width="72" height="12" rx="2"/>
+          <text class="zone-label" x="88" y="73" text-anchor="middle">SOURCES</text>
+        </g>
+
+        <rect class="zone" x="528" y="292" width="408" height="112" rx="8"/>
+        <g class="zone-label-group">
+          <rect class="label-mask label-mask--zone" x="544" y="300" width="88" height="12" rx="2"/>
+          <text class="zone-label" x="588" y="309" text-anchor="middle">CONSUMERS</text>
+        </g>
+
+        <path class="edge" d="M 224,108 H 248 Q 256,108 256,116 V 136 Q 256,144 264,144 H 288" marker-end="url(#dataflow-arrow)"/>
+        <path class="edge" d="M 224,196 H 248 Q 256,196 256,188 V 176 Q 256,168 264,168 H 288" marker-end="url(#dataflow-arrow)"/>
+        <line class="edge" x1="448" y1="156" x2="504" y2="156" marker-end="url(#dataflow-arrow)"/>
+        <line class="edge edge--accent" x1="664" y1="156" x2="720" y2="156" marker-end="url(#dataflow-arrow-accent)"/>
+        <path class="edge" d="M 800,188 V 236 Q 800,244 792,244 H 648 Q 640,244 640,252 V 320" marker-end="url(#dataflow-arrow)"/>
+        <path class="edge" d="M 816,188 V 320" marker-end="url(#dataflow-arrow)"/>
+
+        <g class="edge-label-group">
+          <rect class="label-mask" x="232" y="84" width="48" height="12" rx="2"/>
+          <text class="edge-label" x="240" y="93">EVENTS</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="232" y="204" width="48" height="12" rx="2"/>
+          <text class="edge-label" x="240" y="213">EVENTS</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="452" y="136" width="48" height="12" rx="2"/>
+          <text class="edge-label" x="460" y="145">SCHEMA</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="668" y="136" width="48" height="12" rx="2"/>
+          <text class="edge-label" x="676" y="145">ACCEPT</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="656" y="264" width="40" height="12" rx="2"/>
+          <text class="edge-label" x="664" y="273">QUERY</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="824" y="252" width="40" height="12" rx="2"/>
+          <text class="edge-label" x="832" y="261">PUSH</text>
+        </g>
+
+        <g class="node" data-node="web" style="--order:0">
+          <rect class="node-mask" x="64" y="80" width="160" height="56" rx="6"/>
+          <rect class="node-box node-box--input" x="64" y="80" width="160" height="56" rx="6"/>
+          <text class="node-tag" x="76" y="98">CLIENT</text>
+          <text class="node-name" x="144" y="118" text-anchor="middle">Web app</text>
+        </g>
+
+        <g class="node" data-node="mobile" style="--order:1">
+          <rect class="node-mask" x="64" y="168" width="160" height="56" rx="6"/>
+          <rect class="node-box node-box--input" x="64" y="168" width="160" height="56" rx="6"/>
+          <text class="node-tag" x="76" y="186">CLIENT</text>
+          <text class="node-name" x="144" y="206" text-anchor="middle">Mobile app</text>
+        </g>
+
+        <g class="node" data-node="collector" style="--order:2">
+          <rect class="node-mask" x="288" y="124" width="160" height="64" rx="6"/>
+          <rect class="node-box node-box--backend" x="288" y="124" width="160" height="64" rx="6"/>
+          <text class="node-tag" x="300" y="142">INGEST</text>
+          <text class="node-name" x="368" y="160" text-anchor="middle">Collector</text>
+          <text class="node-tech" x="368" y="176" text-anchor="middle">events · :8080</text>
+        </g>
+
+        <g class="node" data-node="validator" style="--order:3">
+          <rect class="node-mask" x="504" y="124" width="160" height="64" rx="6"/>
+          <rect class="node-box node-box--focal" x="504" y="124" width="160" height="64" rx="6"/>
+          <text class="node-tag" x="516" y="142">GATE</text>
+          <text class="node-name" x="584" y="160" text-anchor="middle">Schema check</text>
+          <text class="node-tech" x="584" y="176" text-anchor="middle">reject · metrics</text>
+        </g>
+
+        <g class="node" data-node="warehouse" style="--order:4">
+          <rect class="node-mask" x="720" y="124" width="160" height="64" rx="6"/>
+          <rect class="node-box node-box--store" x="720" y="124" width="160" height="64" rx="6"/>
+          <text class="node-tag" x="732" y="142">STORE</text>
+          <text class="node-name" x="800" y="160" text-anchor="middle">Warehouse</text>
+          <text class="node-tech" x="800" y="176" text-anchor="middle">hourly · partition</text>
+        </g>
+
+        <g class="node" data-node="bi" style="--order:5">
+          <rect class="node-mask" x="560" y="320" width="160" height="56" rx="6"/>
+          <rect class="node-box node-box--backend" x="560" y="320" width="160" height="56" rx="6"/>
+          <text class="node-tag" x="572" y="338">CONSUMER</text>
+          <text class="node-name" x="640" y="358" text-anchor="middle">BI tool</text>
+        </g>
+
+        <g class="node" data-node="activation" style="--order:6">
+          <rect class="node-mask" x="752" y="320" width="160" height="56" rx="6"/>
+          <rect class="node-box node-box--backend" x="752" y="320" width="160" height="56" rx="6"/>
+          <text class="node-tag" x="764" y="338">CONSUMER</text>
+          <text class="node-name" x="832" y="358" text-anchor="middle">Activation</text>
+        </g>
+
+        <text class="annotation" x="40" y="448">One schema gate protects both consumers; rejected events are counted, not retried.</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

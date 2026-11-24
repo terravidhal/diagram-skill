@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!-- variants: forest, paper -->
+<html lang="en" data-theme="auto" data-palette="@@PALETTE@@">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product organisation and reporting lines</title>
+  <style>
+/* @@THEMES@@ */
+/* @@BASE@@ */
+/* @@MOTION@@ */
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Org chart · Product</p>
+    <h1>Product organisation</h1>
+    <p class="lede">Nine roles, one owner per team, no shared reporting line. The chart appears top-down in reporting order.</p>
+
+    <div class="diagram-container">
+      <svg class="diagram" data-slug="org" data-animate="reveal"
+           viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-labelledby="org-title org-desc">
+        <title id="org-title">Product organisation and reporting lines</title>
+        <desc id="org-desc">A chief executive leads engineering, product, and operations; engineering owns platform and data, product owns design and growth, and operations owns support.</desc>
+
+        <defs>
+          <marker id="org-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-muted" points="0 0, 8 3, 0 6"/>
+          </marker>
+        </defs>
+
+        <rect class="diagram-bg" width="960" height="520"/>
+
+        <path class="edge" d="M 480,112 V 160 Q 480,168 472,168 H 264 Q 256,168 256,176 V 200" marker-end="url(#org-arrow)"/>
+        <line class="edge" x1="480" y1="112" x2="480" y2="200" marker-end="url(#org-arrow)"/>
+        <path class="edge" d="M 480,112 V 160 Q 480,168 488,168 H 696 Q 704,168 704,176 V 200" marker-end="url(#org-arrow)"/>
+
+        <path class="edge" d="M 256,256 V 300 Q 256,308 248,308 H 144 Q 136,308 136,316 V 344" marker-end="url(#org-arrow)"/>
+        <path class="edge" d="M 256,256 V 300 Q 256,308 264,308 H 304 Q 312,308 312,316 V 344" marker-end="url(#org-arrow)"/>
+        <path class="edge" d="M 480,256 V 300 Q 480,308 488,308 H 496 Q 504,308 504,316 V 344" marker-end="url(#org-arrow)"/>
+        <path class="edge" d="M 480,256 V 300 Q 480,308 488,308 H 672 Q 680,308 680,316 V 344" marker-end="url(#org-arrow)"/>
+        <path class="edge" d="M 704,256 V 300 Q 704,308 712,308 H 848 Q 856,308 856,316 V 344" marker-end="url(#org-arrow)"/>
+
+        <g class="node" data-node="ceo" style="--order:0">
+          <rect class="node-mask" x="400" y="56" width="160" height="56" rx="6"/>
+          <rect class="node-box node-box--focal" x="400" y="56" width="160" height="56" rx="6"/>
+          <text class="node-tag" x="412" y="74">COMPANY</text>
+          <text class="node-name" x="480" y="96" text-anchor="middle">Chief executive</text>
+        </g>
+
+        <g class="node" data-node="cto" style="--order:1">
+          <rect class="node-mask" x="176" y="200" width="160" height="56" rx="6"/>
+          <rect class="node-box" x="176" y="200" width="160" height="56" rx="6"/>
+          <text class="node-tag" x="188" y="218">FUNCTION</text>
+          <text class="node-name" x="256" y="240" text-anchor="middle">Engineering</text>
+        </g>
+
+        <g class="node" data-node="cpo" style="--order:2">
+          <rect class="node-mask" x="400" y="200" width="160" height="56" rx="6"/>
+          <rect class="node-box" x="400" y="200" width="160" height="56" rx="6"/>
+          <text class="node-tag" x="412" y="218">FUNCTION</text>
+          <text class="node-name" x="480" y="240" text-anchor="middle">Product</text>
+        </g>
+
+        <g class="node" data-node="coo" style="--order:3">
+          <rect class="node-mask" x="624" y="200" width="160" height="56" rx="6"/>
+          <rect class="node-box" x="624" y="200" width="160" height="56" rx="6"/>
+          <text class="node-tag" x="636" y="218">FUNCTION</text>
+          <text class="node-name" x="704" y="240" text-anchor="middle">Operations</text>
+        </g>
+
+        <g class="node" data-node="platform" style="--order:4">
+          <rect class="node-mask" x="64" y="344" width="144" height="56" rx="6"/>
+          <rect class="node-box" x="64" y="344" width="144" height="56" rx="6"/>
+          <text class="node-tag" x="76" y="362">TEAM</text>
+          <text class="node-name" x="136" y="384" text-anchor="middle">Platform</text>
+        </g>
+
+        <g class="node" data-node="data" style="--order:4">
+          <rect class="node-mask" x="240" y="344" width="144" height="56" rx="6"/>
+          <rect class="node-box" x="240" y="344" width="144" height="56" rx="6"/>
+          <text class="node-tag" x="252" y="362">TEAM</text>
+          <text class="node-name" x="312" y="384" text-anchor="middle">Data</text>
+        </g>
+
+        <g class="node" data-node="design" style="--order:5">
+          <rect class="node-mask" x="432" y="344" width="144" height="56" rx="6"/>
+          <rect class="node-box" x="432" y="344" width="144" height="56" rx="6"/>
+          <text class="node-tag" x="444" y="362">TEAM</text>
+          <text class="node-name" x="504" y="384" text-anchor="middle">Design</text>
+        </g>
+
+        <g class="node" data-node="growth" style="--order:6">
+          <rect class="node-mask" x="608" y="344" width="144" height="56" rx="6"/>
+          <rect class="node-box" x="608" y="344" width="144" height="56" rx="6"/>
+          <text class="node-tag" x="620" y="362">TEAM</text>
+          <text class="node-name" x="680" y="384" text-anchor="middle">Growth</text>
+        </g>
+
+        <g class="node" data-node="support" style="--order:7">
+          <rect class="node-mask" x="784" y="344" width="144" height="56" rx="6"/>
+          <rect class="node-box" x="784" y="344" width="144" height="56" rx="6"/>
+          <text class="node-tag" x="796" y="362">TEAM</text>
+          <text class="node-name" x="856" y="384" text-anchor="middle">Support</text>
+        </g>
+
+        <text class="annotation" x="64" y="468">Each team has one accountable lead; cross-team work is a project, not a second reporting line.</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

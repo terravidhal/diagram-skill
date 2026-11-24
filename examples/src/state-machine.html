@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!-- variants: slate, sand -->
+<html lang="en" data-theme="auto" data-palette="@@PALETTE@@">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subscription lifecycle state machine</title>
+  <style>
+/* @@THEMES@@ */
+/* @@BASE@@ */
+/* @@MOTION@@ */
+    .state-name { fill: var(--ink); font-size: 13px; font-weight: 600; }
+    .state-note { fill: var(--muted); font-family: var(--font-tech); font-size: 9px; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">State machine · Billing</p>
+    <h1>Subscription lifecycle</h1>
+    <p class="lede">Six states, seven transitions. A failed invoice retries once, then suspends; cancellation is allowed from the active state only.</p>
+
+    <div class="diagram-container">
+      <svg class="diagram" data-slug="state" data-animate="draw"
+           viewBox="0 0 960 400" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-labelledby="state-title state-desc">
+        <title id="state-title">Subscription lifecycle state machine</title>
+        <desc id="state-desc">A trial converts to active or expires; an active subscription can become past due, which retries or suspends and can be cancelled.</desc>
+
+        <defs>
+          <marker id="state-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-muted" points="0 0, 8 3, 0 6"/>
+          </marker>
+          <marker id="state-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-accent" points="0 0, 8 3, 0 6"/>
+          </marker>
+        </defs>
+
+        <rect class="diagram-bg" width="960" height="400"/>
+
+        <line class="edge" pathLength="1" style="--order:0" x1="216" y1="124" x2="304" y2="124" marker-end="url(#state-arrow)"/>
+        <path class="edge" pathLength="1" style="--order:1" d="M 140,152 V 272" marker-end="url(#state-arrow)"/>
+        <line class="edge" pathLength="1" style="--order:2" x1="456" y1="124" x2="544" y2="124" marker-end="url(#state-arrow)"/>
+        <path class="edge edge--accent" pathLength="1" style="--order:3" d="M 620,96 V 64 Q 620,56 612,56 H 388 Q 380,56 380,64 V 96" marker-end="url(#state-arrow-accent)"/>
+        <line class="edge" pathLength="1" style="--order:4" x1="620" y1="152" x2="620" y2="272" marker-end="url(#state-arrow)"/>
+        <path class="edge" pathLength="1" style="--order:5" d="M 544,300 H 456" marker-end="url(#state-arrow)"/>
+        <line class="edge" pathLength="1" style="--order:6" x1="420" y1="152" x2="420" y2="272" marker-end="url(#state-arrow)"/>
+
+        <g class="edge-label-group">
+          <rect class="label-mask" x="224" y="104" width="64" height="12" rx="2"/>
+          <text class="edge-label" x="232" y="113">CONVERT</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="148" y="204" width="56" height="12" rx="2"/>
+          <text class="edge-label" x="156" y="213">DAY 14</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="464" y="104" width="72" height="12" rx="2"/>
+          <text class="edge-label" x="472" y="113">INVOICE FAILS</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="468" y="40" width="48" height="12" rx="2"/>
+          <text class="edge-label" x="476" y="49">RETRY</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="628" y="204" width="56" height="12" rx="2"/>
+          <text class="edge-label" x="636" y="213">DAY 7</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="468" y="280" width="64" height="12" rx="2"/>
+          <text class="edge-label" x="476" y="289">30 DAYS</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="428" y="204" width="48" height="12" rx="2"/>
+          <text class="edge-label" x="436" y="213">CANCEL</text>
+        </g>
+
+        <g class="node" data-node="trial">
+          <rect class="node-mask" x="64" y="96" width="152" height="56" rx="8"/>
+          <rect class="node-box node-box--input" x="64" y="96" width="152" height="56" rx="8"/>
+          <text class="node-tag" x="76" y="114">ENTRY</text>
+          <text class="state-name" x="140" y="136" text-anchor="middle">Trial</text>
+        </g>
+
+        <g class="node" data-node="active">
+          <rect class="node-mask" x="304" y="96" width="152" height="56" rx="8"/>
+          <rect class="node-box node-box--focal" x="304" y="96" width="152" height="56" rx="8"/>
+          <text class="node-tag" x="316" y="114">STEADY</text>
+          <text class="state-name" x="380" y="136" text-anchor="middle">Active</text>
+        </g>
+
+        <g class="node" data-node="past-due">
+          <rect class="node-mask" x="544" y="96" width="152" height="56" rx="8"/>
+          <rect class="node-box" x="544" y="96" width="152" height="56" rx="8"/>
+          <text class="node-tag" x="556" y="114">RISK</text>
+          <text class="state-name" x="620" y="136" text-anchor="middle">Past due</text>
+        </g>
+
+        <g class="node" data-node="suspended">
+          <rect class="node-mask" x="544" y="272" width="152" height="56" rx="8"/>
+          <rect class="node-box node-box--optional" x="544" y="272" width="152" height="56" rx="8"/>
+          <text class="node-tag" x="556" y="290">PAUSED</text>
+          <text class="state-name" x="620" y="312" text-anchor="middle">Suspended</text>
+        </g>
+
+        <g class="node" data-node="cancelled">
+          <rect class="node-mask" x="304" y="272" width="152" height="56" rx="8"/>
+          <rect class="node-box" x="304" y="272" width="152" height="56" rx="8"/>
+          <text class="node-tag" x="316" y="290">END</text>
+          <text class="state-name" x="380" y="312" text-anchor="middle">Cancelled</text>
+        </g>
+
+        <g class="node" data-node="expired">
+          <rect class="node-mask" x="64" y="272" width="152" height="56" rx="8"/>
+          <rect class="node-box node-box--optional" x="64" y="272" width="152" height="56" rx="8"/>
+          <text class="node-tag" x="76" y="290">END</text>
+          <text class="state-name" x="140" y="312" text-anchor="middle">Expired</text>
+        </g>
+
+        <text class="annotation" x="64" y="376">The accent path is the only recovery transition: a successful retry returns to Active.</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+/* Diagramforge motion sheet.
+   Optional. Set data-animate="none|draw|reveal|flow|focus|combo" on the root SVG.
+   The diagram is complete before any animation: motion is decorative. */
+
+:root {
+  --dur: 700ms;
+  --stagger: 160ms;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --flow-dur: 4s;
+  --focus-dur: 2.4s;
+}
+
+/* draw: a stroke draws from its start to its end. */
+[data-animate="draw"] .edge,
+[data-animate="combo"] .edge {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: df-draw var(--dur) var(--ease) both;
+  animation-delay: calc(var(--order, 0) * var(--stagger));
+}
+@keyframes df-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* reveal: items appear in narrative order with a small rise. */
+[data-animate="reveal"] .node,
+[data-animate="combo"] .node {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: df-reveal var(--dur) var(--ease) both;
+  animation-delay: calc(var(--order, 0) * var(--stagger));
+}
+@keyframes df-reveal {
+  to { opacity: 1; transform: none; }
+}
+
+/* flow: dashes circulate on explicitly marked edges. */
+[data-animate="flow"] .edge[data-flow] {
+  stroke-dasharray: 6 10;
+  animation: df-flow var(--flow-dur) linear infinite;
+}
+@keyframes df-flow {
+  to { stroke-dashoffset: -64; }
+}
+
+/* focus: one quiet halo on the focal node. */
+[data-animate="focus"] .focus-halo {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: df-focus var(--focus-dur) ease-in-out infinite;
+}
+@keyframes df-focus {
+  0%, 100% { opacity: .15; transform: scale(.98); }
+  50%      { opacity: .55; transform: scale(1.04); }
+}
+
+/* The complete static frame. */
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] *,
+  [data-animate] *::before,
+  [data-animate] *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  [data-animate] .edge { stroke-dashoffset: 0 !important; }
+  [data-animate="draw"] .edge:not(.edge--dashed),
+  [data-animate="combo"] .edge:not(.edge--dashed),
+  [data-animate="flow"] .edge[data-flow]:not(.edge--dashed) { stroke-dasharray: none !important; }
+  [data-animate] .node { opacity: 1 !important; transform: none !important; }
+  [data-animate] .focus-halo,
+  [data-animate] .flow-token { display: none !important; }
+}
+
+[data-static="true"] *,
+[data-static="true"] *::before,
+[data-static="true"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+[data-static="true"] .edge { stroke-dashoffset: 0 !important; }
+[data-static="true"] .edge[data-flow]:not(.edge--dashed) { stroke-dasharray: none !important; }
+[data-static="true"] .node { opacity: 1 !important; transform: none !important; }
+[data-static="true"] .focus-halo,
+[data-static="true"] .flow-token { display: none !important; }
+
+@media print {
+  [data-animate] *,
+  [data-animate] *::before,
+  [data-animate] *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  [data-animate] .edge { stroke-dashoffset: 0 !important; }
+  [data-animate="draw"] .edge:not(.edge--dashed),
+  [data-animate="combo"] .edge:not(.edge--dashed),
+  [data-animate="flow"] .edge[data-flow]:not(.edge--dashed) { stroke-dasharray: none !important; }
+  [data-animate] .node { opacity: 1 !important; transform: none !important; }
+  [data-animate] .focus-halo,
+  [data-animate] .flow-token { display: none !important; }
+}

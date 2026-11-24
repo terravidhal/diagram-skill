@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!-- variants: paper, midnight -->
+<html lang="en" data-theme="auto" data-palette="@@PALETTE@@">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cache miss on checkout — Diagramforge</title>
+  <style>
+/* @@THEMES@@ */
+/* @@BASE@@ */
+/* @@MOTION@@ */
+    /* Keep dashed returns dashed while their opacity reveals. */
+    [data-animate="draw"] .edge--dashed {
+      stroke-dasharray: 8 5;
+      animation: df-fade var(--dur) var(--ease) both;
+      animation-delay: calc(var(--order, 0) * var(--stagger));
+    }
+    @keyframes df-fade { from { opacity: 0; } to { opacity: 1; } }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Sequence · Checkout</p>
+    <h1>Cache miss on checkout</h1>
+    <p class="lede">One request, four actors. The return messages are dashed; the success response is the only accent.</p>
+
+    <div class="diagram-container">
+      <svg class="diagram" data-slug="sequence" data-animate="draw"
+           viewBox="0 0 960 600" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-labelledby="sequence-title sequence-desc">
+        <title id="sequence-title">Cache miss on checkout</title>
+        <desc id="sequence-desc">A client calls the API, which misses the Redis cache, reads Postgres, gets the rows, and returns a 201 response to the client.</desc>
+
+        <defs>
+          <marker id="sequence-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-muted" points="0 0, 8 3, 0 6"/>
+          </marker>
+          <marker id="sequence-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-accent" points="0 0, 8 3, 0 6"/>
+          </marker>
+        </defs>
+
+        <rect class="diagram-bg" width="960" height="600"/>
+
+        <line class="lifeline" x1="180" y1="120" x2="180" y2="536"/>
+        <line class="lifeline" x1="400" y1="120" x2="400" y2="536"/>
+        <line class="lifeline" x1="620" y1="120" x2="620" y2="536"/>
+        <line class="lifeline" x1="840" y1="120" x2="840" y2="536"/>
+
+        <rect class="activation" x="396" y="184" width="8" height="328"/>
+        <rect class="activation" x="616" y="240" width="8" height="80"/>
+        <rect class="activation" x="836" y="352" width="8" height="80"/>
+
+        <line class="edge" pathLength="1" style="--order:0" x1="180" y1="192" x2="396" y2="192" marker-end="url(#sequence-arrow)"/>
+        <line class="edge" pathLength="1" style="--order:1" x1="404" y1="248" x2="616" y2="248" marker-end="url(#sequence-arrow)"/>
+        <line class="edge edge--dashed" style="--order:2" x1="616" y1="304" x2="404" y2="304" marker-end="url(#sequence-arrow)"/>
+        <line class="edge" pathLength="1" style="--order:3" x1="404" y1="360" x2="836" y2="360" marker-end="url(#sequence-arrow)"/>
+        <line class="edge edge--dashed" style="--order:4" x1="836" y1="416" x2="404" y2="416" marker-end="url(#sequence-arrow)"/>
+        <line class="edge edge--accent" pathLength="1" style="--order:5" x1="396" y1="472" x2="180" y2="472" marker-end="url(#sequence-arrow-accent)"/>
+
+        <g class="edge-label-group">
+          <rect class="label-mask" x="244" y="172" width="92" height="12" rx="2"/>
+          <text class="edge-label" x="290" y="181" text-anchor="middle">POST /checkout</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="480" y="228" width="56" height="12" rx="2"/>
+          <text class="edge-label" x="510" y="237" text-anchor="middle">GET CART</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="488" y="284" width="40" height="12" rx="2"/>
+          <text class="edge-label" x="510" y="293" text-anchor="middle">MISS</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="696" y="340" width="48" height="12" rx="2"/>
+          <text class="edge-label" x="720" y="349" text-anchor="middle">SELECT</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="700" y="396" width="40" height="12" rx="2"/>
+          <text class="edge-label" x="720" y="405" text-anchor="middle">ROWS</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="244" y="452" width="92" height="12" rx="2"/>
+          <text class="edge-label" x="290" y="461" text-anchor="middle">201 CREATED</text>
+        </g>
+
+        <g class="node" data-node="client">
+          <rect class="node-mask" x="108" y="64" width="144" height="56" rx="6"/>
+          <rect class="node-box node-box--input" x="108" y="64" width="144" height="56" rx="6"/>
+          <text class="node-tag" x="120" y="82">USER</text>
+          <text class="node-name" x="180" y="102" text-anchor="middle">Client</text>
+        </g>
+        <g class="node" data-node="api">
+          <rect class="node-mask" x="328" y="64" width="144" height="56" rx="6"/>
+          <rect class="node-box node-box--backend" x="328" y="64" width="144" height="56" rx="6"/>
+          <text class="node-tag" x="340" y="82">SERVICE</text>
+          <text class="node-name" x="400" y="102" text-anchor="middle">API</text>
+        </g>
+        <g class="node" data-node="redis">
+          <rect class="node-mask" x="548" y="64" width="144" height="56" rx="6"/>
+          <rect class="node-box node-box--store" x="548" y="64" width="144" height="56" rx="6"/>
+          <text class="node-tag" x="560" y="82">STORE</text>
+          <text class="node-name" x="620" y="102" text-anchor="middle">Redis</text>
+        </g>
+        <g class="node" data-node="postgres">
+          <rect class="node-mask" x="768" y="64" width="144" height="56" rx="6"/>
+          <rect class="node-box node-box--store" x="768" y="64" width="144" height="56" rx="6"/>
+          <text class="node-tag" x="780" y="82">STORE</text>
+          <text class="node-name" x="840" y="102" text-anchor="middle">Postgres</text>
+        </g>
+
+        <text class="axis-label" x="180" y="568" text-anchor="middle">t0</text>
+        <text class="axis-label" x="840" y="568" text-anchor="middle">time →</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

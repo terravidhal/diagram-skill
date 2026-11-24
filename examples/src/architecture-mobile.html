@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!-- variants: forest, paper -->
+<html lang="en" data-theme="auto" data-palette="@@PALETTE@@">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile request path — Diagramforge</title>
+  <style>
+/* @@THEMES@@ */
+/* @@BASE@@ */
+/* @@MOTION@@ */
+    svg.diagram { min-width: 360px; }
+    @media (max-width: 720px) {
+      body { padding: 16px 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Architecture · Mobile</p>
+    <h1>Request path, narrow canvas</h1>
+    <p class="lede">A 360-wide layout for a 390 screen. The vertical flow keeps the type ramp instead of shrinking the diagram.</p>
+
+    <div class="diagram-container">
+      <svg class="diagram" data-slug="mobile" data-animate="none"
+           viewBox="0 0 360 560" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-labelledby="mobile-title mobile-desc">
+        <title id="mobile-title">Mobile request path</title>
+        <desc id="mobile-desc">A client calls an API, which queues a worker; the worker reads Redis and writes Postgres, side by side.</desc>
+
+        <defs>
+          <marker id="mobile-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-muted" points="0 0, 8 3, 0 6"/>
+          </marker>
+        </defs>
+
+        <rect class="diagram-bg" width="360" height="560"/>
+
+        <line class="edge" x1="180" y1="112" x2="180" y2="152" marker-end="url(#mobile-arrow)"/>
+        <line class="edge" x1="180" y1="216" x2="180" y2="256" marker-end="url(#mobile-arrow)"/>
+        <path class="edge" d="M 148,320 V 344 Q 148,352 140,352 H 104 Q 96,352 96,360 V 384" marker-end="url(#mobile-arrow)"/>
+        <path class="edge" d="M 212,320 V 344 Q 212,352 220,352 H 256 Q 264,352 264,360 V 384" marker-end="url(#mobile-arrow)"/>
+
+        <g class="edge-label-group">
+          <rect class="label-mask" x="188" y="124" width="56" height="12" rx="2"/>
+          <text class="edge-label" x="196" y="133">HTTPS</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="188" y="228" width="40" height="12" rx="2"/>
+          <text class="edge-label" x="196" y="237">JOB</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="96" y="332" width="48" height="12" rx="2"/>
+          <text class="edge-label" x="104" y="341">READ</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="224" y="332" width="48" height="12" rx="2"/>
+          <text class="edge-label" x="232" y="341">WRITE</text>
+        </g>
+
+        <g class="node" data-node="client">
+          <rect class="node-mask" x="80" y="48" width="200" height="64" rx="6"/>
+          <rect class="node-box node-box--input" x="80" y="48" width="200" height="64" rx="6"/>
+          <text class="node-tag" x="92" y="66">CLIENT</text>
+          <text class="node-name" x="180" y="84" text-anchor="middle">Browser</text>
+          <text class="node-tech" x="180" y="100" text-anchor="middle">web · https</text>
+        </g>
+
+        <g class="node" data-node="api">
+          <rect class="node-mask" x="80" y="152" width="200" height="64" rx="6"/>
+          <rect class="node-box node-box--backend" x="80" y="152" width="200" height="64" rx="6"/>
+          <text class="node-tag" x="92" y="170">EDGE</text>
+          <text class="node-name" x="180" y="188" text-anchor="middle">API gateway</text>
+          <text class="node-tech" x="180" y="204" text-anchor="middle">:443 · TLS</text>
+        </g>
+
+        <g class="node" data-node="worker">
+          <rect class="node-mask" x="80" y="256" width="200" height="64" rx="6"/>
+          <rect class="node-box node-box--focal" x="80" y="256" width="200" height="64" rx="6"/>
+          <text class="node-tag" x="92" y="274">SERVICE</text>
+          <text class="node-name" x="180" y="292" text-anchor="middle">Job worker</text>
+          <text class="node-tech" x="180" y="308" text-anchor="middle">queue · async</text>
+        </g>
+
+        <g class="node" data-node="redis">
+          <rect class="node-mask" x="24" y="384" width="144" height="64" rx="6"/>
+          <rect class="node-box node-box--store" x="24" y="384" width="144" height="64" rx="6"/>
+          <text class="node-tag" x="36" y="402">STORE</text>
+          <text class="node-name" x="96" y="420" text-anchor="middle">Redis</text>
+          <text class="node-tech" x="96" y="436" text-anchor="middle">cache</text>
+        </g>
+
+        <g class="node" data-node="postgres">
+          <rect class="node-mask" x="192" y="384" width="144" height="64" rx="6"/>
+          <rect class="node-box node-box--store" x="192" y="384" width="144" height="64" rx="6"/>
+          <text class="node-tag" x="204" y="402">STORE</text>
+          <text class="node-name" x="264" y="420" text-anchor="middle">Postgres</text>
+          <text class="node-tech" x="264" y="436" text-anchor="middle">primary</text>
+        </g>
+
+        <text class="annotation" x="24" y="520">Vertical flow keeps the names readable.</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

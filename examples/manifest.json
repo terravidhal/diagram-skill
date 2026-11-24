@@ -1,0 +1,150 @@
+{
+  "diagrams": 16,
+  "variants": 32,
+  "files": [
+    {
+      "slug": "api-map",
+      "title": "Public API surface and dependencies",
+      "mode": "draw",
+      "palettes": [
+        "ocean",
+        "slate"
+      ]
+    },
+    {
+      "slug": "architecture-mobile",
+      "title": "Mobile request path — Diagramforge",
+      "mode": "none",
+      "palettes": [
+        "forest",
+        "paper"
+      ]
+    },
+    {
+      "slug": "architecture",
+      "title": "Checkout request path — Diagramforge",
+      "mode": "none",
+      "palettes": [
+        "ocean",
+        "sand"
+      ]
+    },
+    {
+      "slug": "ci-pipeline",
+      "title": "CI/CD pipeline with a security gate",
+      "mode": "flow",
+      "palettes": [
+        "slate",
+        "paper"
+      ]
+    },
+    {
+      "slug": "comparison",
+      "title": "Monolith to services: what changed",
+      "mode": "reveal",
+      "palettes": [
+        "mono",
+        "ocean"
+      ]
+    },
+    {
+      "slug": "cycle",
+      "title": "Product growth flywheel",
+      "mode": "flow",
+      "palettes": [
+        "forest",
+        "midnight"
+      ]
+    },
+    {
+      "slug": "data-flow",
+      "title": "Event flow from sources to consumers",
+      "mode": "reveal",
+      "palettes": [
+        "ocean",
+        "slate"
+      ]
+    },
+    {
+      "slug": "data-pipeline",
+      "title": "Pipeline with a quality gate — Diagramforge",
+      "mode": "flow",
+      "palettes": [
+        "midnight",
+        "forest"
+      ]
+    },
+    {
+      "slug": "database-schema",
+      "title": "Orders, payments, and customers — Diagramforge",
+      "mode": "none",
+      "palettes": [
+        "brand",
+        "sand"
+      ]
+    },
+    {
+      "slug": "flowchart",
+      "title": "Authentication retry path — Diagramforge",
+      "mode": "focus",
+      "palettes": [
+        "midnight",
+        "paper"
+      ]
+    },
+    {
+      "slug": "funnel",
+      "title": "Trial-to-paid conversion funnel",
+      "mode": "reveal",
+      "palettes": [
+        "paper",
+        "ocean"
+      ]
+    },
+    {
+      "slug": "org-chart",
+      "title": "Product organisation and reporting lines",
+      "mode": "reveal",
+      "palettes": [
+        "forest",
+        "paper"
+      ]
+    },
+    {
+      "slug": "quadrant",
+      "title": "Where to invest next — Diagramforge",
+      "mode": "none",
+      "palettes": [
+        "slate",
+        "ocean"
+      ]
+    },
+    {
+      "slug": "sequence",
+      "title": "Cache miss on checkout — Diagramforge",
+      "mode": "draw",
+      "palettes": [
+        "paper",
+        "midnight"
+      ]
+    },
+    {
+      "slug": "state-machine",
+      "title": "Subscription lifecycle state machine",
+      "mode": "draw",
+      "palettes": [
+        "slate",
+        "sand"
+      ]
+    },
+    {
+      "slug": "timeline",
+      "title": "Incident timeline — Diagramforge",
+      "mode": "reveal",
+      "palettes": [
+        "sand",
+        "ocean"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,293 @@
+/* Diagramforge theme sheet.
+   Set data-theme="auto|light|dark" and data-palette="paper|midnight|ocean|forest|
+   sand|slate|mono|contrast|brand" on <html>. Only the three base colours change;
+   every other role is derived with color-mix(). */
+
+:root {
+  color-scheme: light;
+
+  /* Base palette: warm paper. */
+  --paper: #F7F5EF;
+  --ink: #20242B;
+  --accent: #B4451F;
+
+  /* Brand inputs, overridden inline when data-palette="brand". */
+  --brand-paper: #F7F5EF;
+  --brand-ink: #20242B;
+  --brand-accent: #B4451F;
+
+  /* Derived roles. These recompute when --paper, --ink, or --accent change. */
+  --surface: color-mix(in srgb, var(--paper) 94%, var(--ink));
+  --mask: color-mix(in srgb, var(--ink) 1%, var(--paper));
+  --muted: color-mix(in srgb, var(--ink) 72%, var(--paper));
+  --soft: color-mix(in srgb, var(--ink) 67%, var(--paper));
+  --line: color-mix(in srgb, var(--ink) 14%, var(--paper));
+  --line-strong: color-mix(in srgb, var(--ink) 55%, var(--paper));
+  --accent-soft: color-mix(in srgb, var(--accent) 10%, var(--paper));
+  --accent-line: color-mix(in srgb, var(--accent) 55%, var(--paper));
+  --link: var(--accent);
+  --link-soft: color-mix(in srgb, var(--link) 10%, var(--paper));
+
+  /* Status roles, always paired with a word or a symbol. */
+  --ok: #2F7A4F;
+  --warn: #8A5A00;
+  --danger: #A62F25;
+
+  /* Multi-series charts only. */
+  --series-1: #5F7A4E;
+  --series-2: #3F6488;
+  --series-3: #8A642B;
+  --series-4: #8A5238;
+  --series-5: #5A5068;
+
+  /* Geometry. */
+  --grid: 4px;
+  --radius-sm: 2px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --stroke-hair: 0.8px;
+  --stroke-1: 1px;
+  --stroke-2: 1.25px;
+
+  /* Type stacks: no network request, no web-font dependency. */
+  --font-title: ui-serif, Georgia, "Times New Roman", serif;
+  --font-name: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-tech: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
+    monospace;
+}
+
+/* Operating-system dark, unless the document forces light. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #14171C;
+    --ink: #F2EFE7;
+    --accent: #F08A5D;
+    --ok: #7FD1A0;
+    --warn: #F2C14E;
+    --danger: #FF8A7A;
+    --series-1: #9CB48E;
+    --series-2: #82A7CC;
+    --series-3: #D8B074;
+    --series-4: #D09478;
+    --series-5: #A99BB8;
+  }
+}
+
+/* Explicit dark. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #14171C;
+  --ink: #F2EFE7;
+  --accent: #F08A5D;
+  --ok: #7FD1A0;
+  --warn: #F2C14E;
+  --danger: #FF8A7A;
+  --series-1: #9CB48E;
+  --series-2: #82A7CC;
+  --series-3: #D8B074;
+  --series-4: #D09478;
+  --series-5: #A99BB8;
+}
+
+/* Explicit light, even when the OS is dark. */
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+/* --------------------------------------------------------------------------
+   Palettes. Each block sets only paper / ink / accent. Derived roles follow.
+   -------------------------------------------------------------------------- */
+
+:root[data-palette="paper"] {
+  color-scheme: light;
+  --paper: #F7F5EF;
+  --ink: #20242B;
+  --accent: #B4451F;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="paper"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #14171C;
+    --ink: #F2EFE7;
+    --accent: #F08A5D;
+  }
+}
+:root[data-palette="paper"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #14171C;
+  --ink: #F2EFE7;
+  --accent: #F08A5D;
+}
+
+:root[data-palette="midnight"] {
+  color-scheme: light;
+  --paper: #F2F4F7;
+  --ink: #111827;
+  --accent: #4F46E5;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="midnight"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0B1020;
+    --ink: #E8ECF4;
+    --accent: #8B9CFF;
+  }
+}
+:root[data-palette="midnight"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0B1020;
+  --ink: #E8ECF4;
+  --accent: #8B9CFF;
+}
+
+:root[data-palette="ocean"] {
+  color-scheme: light;
+  --paper: #F2F7FA;
+  --ink: #102A43;
+  --accent: #0B6E99;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="ocean"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #081A26;
+    --ink: #E6F0F5;
+    --accent: #4FB3D9;
+  }
+}
+:root[data-palette="ocean"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #081A26;
+  --ink: #E6F0F5;
+  --accent: #4FB3D9;
+}
+
+:root[data-palette="forest"] {
+  color-scheme: light;
+  --paper: #F4F7F1;
+  --ink: #1D2A22;
+  --accent: #2F6B4F;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="forest"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0F1A14;
+    --ink: #E9F0EA;
+    --accent: #6FBF94;
+  }
+}
+:root[data-palette="forest"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0F1A14;
+  --ink: #E9F0EA;
+  --accent: #6FBF94;
+}
+
+:root[data-palette="sand"] {
+  color-scheme: light;
+  --paper: #FAF6EE;
+  --ink: #2B241B;
+  --accent: #A35A2A;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="sand"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #1C1712;
+    --ink: #F4EBDD;
+    --accent: #D89A63;
+  }
+}
+:root[data-palette="sand"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #1C1712;
+  --ink: #F4EBDD;
+  --accent: #D89A63;
+}
+
+:root[data-palette="slate"] {
+  color-scheme: light;
+  --paper: #F3F4F6;
+  --ink: #1F2937;
+  --accent: #3B5BDB;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="slate"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #111827;
+    --ink: #E5E7EB;
+    --accent: #7C9CFF;
+  }
+}
+:root[data-palette="slate"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #111827;
+  --ink: #E5E7EB;
+  --accent: #7C9CFF;
+}
+
+:root[data-palette="mono"] {
+  color-scheme: light;
+  --paper: #FAFAF8;
+  --ink: #111111;
+  --accent: #111111;
+  --accent-soft: color-mix(in srgb, var(--ink) 8%, var(--paper));
+  --accent-line: color-mix(in srgb, var(--ink) 45%, var(--paper));
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="mono"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0D0D0D;
+    --ink: #F5F5F5;
+    --accent: #F5F5F5;
+  }
+}
+:root[data-palette="mono"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0D0D0D;
+  --ink: #F5F5F5;
+  --accent: #F5F5F5;
+}
+
+:root[data-palette="contrast"] {
+  color-scheme: light;
+  --paper: #FFFFFF;
+  --ink: #000000;
+  --accent: #0033A0;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="contrast"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #000000;
+    --ink: #FFFFFF;
+    --accent: #66B2FF;
+  }
+}
+:root[data-palette="contrast"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #000000;
+  --ink: #FFFFFF;
+  --accent: #66B2FF;
+}
+
+/* Brand: three inline inputs, derived light and dark. */
+:root[data-palette="brand"] {
+  color-scheme: light;
+  --paper: var(--brand-paper);
+  --ink: var(--brand-ink);
+  --accent: var(--brand-accent);
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="brand"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: color-mix(in srgb, var(--brand-ink) 88%, #05070A);
+    --ink: color-mix(in srgb, var(--brand-paper) 92%, #FFFFFF);
+    --accent: color-mix(in srgb, var(--brand-accent) 72%, #FFFFFF);
+  }
+}
+:root[data-palette="brand"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: color-mix(in srgb, var(--brand-ink) 88%, #05070A);
+  --ink: color-mix(in srgb, var(--brand-paper) 92%, #FFFFFF);
+  --accent: color-mix(in srgb, var(--brand-accent) 72%, #FFFFFF);
+}

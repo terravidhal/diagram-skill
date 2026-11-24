@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!-- variants: ocean, slate -->
+<html lang="en" data-theme="auto" data-palette="@@PALETTE@@">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public API surface and dependencies</title>
+  <style>
+/* @@THEMES@@ */
+/* @@BASE@@ */
+/* @@MOTION@@ */
+    .api-heading { fill: var(--muted); font-family: var(--font-tech); font-size: 8px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+    .api-endpoint { fill: var(--ink); font-family: var(--font-tech); font-size: 10px; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">API map · Public surface</p>
+    <h1>Public API surface</h1>
+    <p class="lede">Two clients, one gateway, three services, three dependencies. The edges draw in request order; the endpoint list stays static.</p>
+
+    <div class="diagram-container">
+      <svg class="diagram" data-slug="api" data-animate="draw"
+           viewBox="0 0 960 600" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-labelledby="api-title api-desc">
+        <title id="api-title">Public API surface and dependencies</title>
+        <desc id="api-desc">Web and mobile clients call an API gateway that routes to orders, billing, and search; those services read Postgres, a payment provider, and a search index.</desc>
+
+        <defs>
+          <marker id="api-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-muted" points="0 0, 8 3, 0 6"/>
+          </marker>
+          <marker id="api-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-accent" points="0 0, 8 3, 0 6"/>
+          </marker>
+        </defs>
+
+        <rect class="diagram-bg" width="960" height="600"/>
+
+        <rect class="zone" x="40" y="48" width="424" height="240" rx="8"/>
+        <g class="zone-label-group">
+          <rect class="label-mask label-mask--zone" x="56" y="56" width="88" height="12" rx="2"/>
+          <text class="zone-label" x="100" y="65" text-anchor="middle">PUBLIC EDGE</text>
+        </g>
+
+        <rect class="zone" x="512" y="48" width="192" height="296" rx="8"/>
+        <g class="zone-label-group">
+          <rect class="label-mask label-mask--zone" x="528" y="56" width="72" height="12" rx="2"/>
+          <text class="zone-label" x="564" y="65" text-anchor="middle">SERVICES</text>
+        </g>
+
+        <rect class="zone" x="744" y="48" width="192" height="296" rx="8"/>
+        <g class="zone-label-group">
+          <rect class="label-mask label-mask--zone" x="760" y="56" width="72" height="12" rx="2"/>
+          <text class="zone-label" x="796" y="65" text-anchor="middle">DEPENDENCIES</text>
+        </g>
+
+        <path class="edge" pathLength="1" style="--order:0" d="M 208,124 H 256 Q 264,124 264,132 V 164 Q 264,172 272,172 H 288" marker-end="url(#api-arrow)"/>
+        <path class="edge" pathLength="1" style="--order:1" d="M 208,228 H 256 Q 264,228 264,220 V 188 Q 264,180 272,180 H 288" marker-end="url(#api-arrow)"/>
+        <path class="edge" pathLength="1" style="--order:2" d="M 448,172 H 480 Q 488,172 488,164 V 108 Q 488,100 496,100 H 528" marker-end="url(#api-arrow)"/>
+        <path class="edge" pathLength="1" style="--order:3" d="M 448,180 H 512 Q 520,180 520,188 V 196 H 528" marker-end="url(#api-arrow)"/>
+        <path class="edge" pathLength="1" style="--order:4" d="M 448,188 H 496 Q 504,188 504,196 V 284 Q 504,292 512,292 H 528" marker-end="url(#api-arrow)"/>
+        <line class="edge" pathLength="1" style="--order:5" x1="680" y1="100" x2="760" y2="100" marker-end="url(#api-arrow)"/>
+        <line class="edge" pathLength="1" style="--order:6" x1="680" y1="196" x2="760" y2="196" marker-end="url(#api-arrow)"/>
+        <line class="edge" pathLength="1" style="--order:7" x1="680" y1="292" x2="760" y2="292" marker-end="url(#api-arrow)"/>
+
+        <g class="edge-label-group">
+          <rect class="label-mask" x="216" y="104" width="40" height="12" rx="2"/>
+          <text class="edge-label" x="224" y="113">HTTPS</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="216" y="208" width="40" height="12" rx="2"/>
+          <text class="edge-label" x="224" y="217">HTTPS</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="496" y="120" width="28" height="12" rx="2"/>
+          <text class="edge-label" x="500" y="129">ROUTE</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="696" y="80" width="32" height="12" rx="2"/>
+          <text class="edge-label" x="700" y="89">READ</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="688" y="176" width="40" height="12" rx="2"/>
+          <text class="edge-label" x="692" y="185">CHARGE</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="688" y="272" width="40" height="12" rx="2"/>
+          <text class="edge-label" x="692" y="281">QUERY</text>
+        </g>
+
+        <g class="node" data-node="web">
+          <rect class="node-mask" x="64" y="96" width="144" height="56" rx="6"/>
+          <rect class="node-box node-box--input" x="64" y="96" width="144" height="56" rx="6"/>
+          <text class="node-tag" x="76" y="114">CLIENT</text>
+          <text class="node-name" x="136" y="134" text-anchor="middle">Web app</text>
+        </g>
+
+        <g class="node" data-node="mobile">
+          <rect class="node-mask" x="64" y="200" width="144" height="56" rx="6"/>
+          <rect class="node-box node-box--input" x="64" y="200" width="144" height="56" rx="6"/>
+          <text class="node-tag" x="76" y="218">CLIENT</text>
+          <text class="node-name" x="136" y="238" text-anchor="middle">Mobile app</text>
+        </g>
+
+        <g class="node" data-node="gateway">
+          <rect class="node-mask" x="288" y="148" width="160" height="64" rx="6"/>
+          <rect class="node-box node-box--backend" x="288" y="148" width="160" height="64" rx="6"/>
+          <text class="node-tag" x="300" y="166">EDGE</text>
+          <text class="node-name" x="368" y="186" text-anchor="middle">API gateway</text>
+          <text class="node-tech" x="368" y="202" text-anchor="middle">auth · rate limit</text>
+        </g>
+
+        <g class="node" data-node="orders">
+          <rect class="node-mask" x="528" y="72" width="152" height="56" rx="6"/>
+          <rect class="node-box node-box--focal" x="528" y="72" width="152" height="56" rx="6"/>
+          <text class="node-tag" x="540" y="90">SERVICE</text>
+          <text class="node-name" x="604" y="110" text-anchor="middle">Orders</text>
+        </g>
+
+        <g class="node" data-node="billing">
+          <rect class="node-mask" x="528" y="168" width="152" height="56" rx="6"/>
+          <rect class="node-box node-box--backend" x="528" y="168" width="152" height="56" rx="6"/>
+          <text class="node-tag" x="540" y="186">SERVICE</text>
+          <text class="node-name" x="604" y="206" text-anchor="middle">Billing</text>
+        </g>
+
+        <g class="node" data-node="search">
+          <rect class="node-mask" x="528" y="264" width="152" height="56" rx="6"/>
+          <rect class="node-box node-box--backend" x="528" y="264" width="152" height="56" rx="6"/>
+          <text class="node-tag" x="540" y="282">SERVICE</text>
+          <text class="node-name" x="604" y="302" text-anchor="middle">Search</text>
+        </g>
+
+        <g class="node" data-node="postgres">
+          <rect class="node-mask" x="760" y="72" width="152" height="56" rx="6"/>
+          <rect class="node-box node-box--store" x="760" y="72" width="152" height="56" rx="6"/>
+          <text class="node-tag" x="772" y="90">STORE</text>
+          <text class="node-name" x="836" y="110" text-anchor="middle">Postgres</text>
+        </g>
+
+        <g class="node" data-node="payments">
+          <rect class="node-mask" x="760" y="168" width="152" height="56" rx="6"/>
+          <rect class="node-box node-box--external" x="760" y="168" width="152" height="56" rx="6"/>
+          <text class="node-tag" x="772" y="186">EXTERNAL</text>
+          <text class="node-name" x="836" y="206" text-anchor="middle">Payments</text>
+        </g>
+
+        <g class="node" data-node="index">
+          <rect class="node-mask" x="760" y="264" width="152" height="56" rx="6"/>
+          <rect class="node-box node-box--store" x="760" y="264" width="152" height="56" rx="6"/>
+          <text class="node-tag" x="772" y="282">STORE</text>
+          <text class="node-name" x="836" y="302" text-anchor="middle">Search index</text>
+        </g>
+
+        <text class="api-heading" x="64" y="504">PUBLIC ENDPOINTS</text>
+        <text class="api-endpoint" x="64" y="528">POST /orders · GET /orders/:id · POST /charges</text>
+        <text class="api-endpoint" x="64" y="552">Auth: bearer · Rate limit: 100 rps · Version: v2</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

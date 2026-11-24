@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!-- variants: brand, sand -->
+<html lang="en" data-theme="auto" data-palette="@@PALETTE@@"
+      style="--brand-paper:#FFFFFF;--brand-ink:#141413;--brand-accent:#0B5FFF">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orders, payments, and customers — Diagramforge</title>
+  <style>
+/* @@THEMES@@ */
+/* @@BASE@@ */
+/* @@MOTION@@ */
+    .entity-head--focal { fill: var(--accent-soft); stroke: var(--accent); }
+    .entity-head-fill { fill: var(--surface); stroke: none; }
+    .entity-head-fill--focal { fill: var(--accent-soft); stroke: none; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">ERD · Commerce</p>
+    <h1>Orders, payments, and customers</h1>
+    <p class="lede">Three tables, two one-to-many relationships, and a brand accent supplied in one line. The key columns carry the join.</p>
+
+    <div class="diagram-container">
+      <svg class="diagram" data-slug="erd" data-animate="none"
+           viewBox="0 0 960 360" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-labelledby="erd-title erd-desc">
+        <title id="erd-title">Orders, payments, and customers</title>
+        <desc id="erd-desc">Customers have many orders, and orders have many payments; primary and foreign keys are marked on each table.</desc>
+
+        <defs>
+          <marker id="erd-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-muted" points="0 0, 8 3, 0 6"/>
+          </marker>
+          <marker id="erd-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-accent" points="0 0, 8 3, 0 6"/>
+          </marker>
+        </defs>
+
+        <rect class="diagram-bg" width="960" height="360"/>
+
+        <path class="edge" d="M 304,112 H 328 Q 336,112 336,120 V 128 Q 336,136 344,136 H 360" marker-end="url(#erd-arrow)"/>
+        <path class="edge edge--accent" d="M 616,112 H 644 Q 652,112 652,120 V 128 Q 652,136 660,136 H 688" marker-end="url(#erd-arrow-accent)"/>
+
+        <g class="edge-label-group">
+          <rect class="label-mask" x="316" y="92" width="32" height="12" rx="2"/>
+          <text class="edge-label" x="332" y="101" text-anchor="middle">1:N</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="636" y="92" width="32" height="12" rx="2"/>
+          <text class="edge-label" x="652" y="101" text-anchor="middle">1:N</text>
+        </g>
+
+        <g class="entity" data-node="customers">
+          <rect class="node-mask" x="64" y="64" width="240" height="116" rx="6"/>
+          <rect class="node-box" x="64" y="64" width="240" height="116" rx="6"/>
+          <rect class="entity-head" x="64" y="64" width="240" height="36" rx="6"/>
+          <rect class="entity-head-fill" x="64" y="88" width="240" height="12"/>
+          <text class="node-name" x="80" y="88">customers</text>
+          <line class="entity-rule" x1="64" y1="100" x2="304" y2="100"/>
+          <text class="field-key" x="80" y="117">PK</text>
+          <text class="field-name" x="104" y="117">id</text>
+          <text class="field-type" x="288" y="117" text-anchor="end">uuid</text>
+          <text class="field-name" x="80" y="141">email</text>
+          <text class="field-type" x="288" y="141" text-anchor="end">text</text>
+          <text class="field-name" x="80" y="165">created_at</text>
+          <text class="field-type" x="288" y="165" text-anchor="end">timestamptz</text>
+        </g>
+
+        <g class="entity" data-node="orders">
+          <rect class="node-mask" x="360" y="64" width="256" height="164" rx="6"/>
+          <rect class="node-box" x="360" y="64" width="256" height="164" rx="6"/>
+          <rect class="entity-head entity-head--focal" x="360" y="64" width="256" height="36" rx="6"/>
+          <rect class="entity-head-fill entity-head-fill--focal" x="360" y="88" width="256" height="12"/>
+          <text class="node-name" x="376" y="88">orders</text>
+          <line class="entity-rule" x1="360" y1="100" x2="616" y2="100"/>
+          <text class="field-key" x="376" y="117">PK</text>
+          <text class="field-name" x="400" y="117">id</text>
+          <text class="field-type" x="600" y="117" text-anchor="end">uuid</text>
+          <text class="field-key" x="376" y="141">FK</text>
+          <text class="field-name" x="400" y="141">customer_id</text>
+          <text class="field-type" x="600" y="141" text-anchor="end">uuid</text>
+          <text class="field-name" x="376" y="165">total</text>
+          <text class="field-type" x="600" y="165" text-anchor="end">int4</text>
+          <text class="field-name" x="376" y="189">status</text>
+          <text class="field-type" x="600" y="189" text-anchor="end">text</text>
+          <text class="field-name" x="376" y="213">created_at</text>
+          <text class="field-type" x="600" y="213" text-anchor="end">timestamptz</text>
+        </g>
+
+        <g class="entity" data-node="payments">
+          <rect class="node-mask" x="688" y="64" width="208" height="140" rx="6"/>
+          <rect class="node-box" x="688" y="64" width="208" height="140" rx="6"/>
+          <rect class="entity-head" x="688" y="64" width="208" height="36" rx="6"/>
+          <rect class="entity-head-fill" x="688" y="88" width="208" height="12"/>
+          <text class="node-name" x="704" y="88">payments</text>
+          <line class="entity-rule" x1="688" y1="100" x2="896" y2="100"/>
+          <text class="field-key" x="704" y="117">PK</text>
+          <text class="field-name" x="728" y="117">id</text>
+          <text class="field-type" x="880" y="117" text-anchor="end">uuid</text>
+          <text class="field-key" x="704" y="141">FK</text>
+          <text class="field-name" x="728" y="141">order_id</text>
+          <text class="field-type" x="880" y="141" text-anchor="end">uuid</text>
+          <text class="field-name" x="704" y="165">provider_ref</text>
+          <text class="field-type" x="880" y="165" text-anchor="end">text</text>
+          <text class="field-name" x="704" y="189">captured_at</text>
+          <text class="field-type" x="880" y="189" text-anchor="end">timestamptz</text>
+        </g>
+
+        <line class="legend-rule" x1="64" y1="272" x2="896" y2="272"/>
+        <text class="legend-label" x="64" y="292">KEYS</text>
+        <text class="field-key" x="128" y="292">PK</text>
+        <text class="legend-item-text" x="148" y="292">primary key</text>
+        <text class="field-key" x="248" y="292">FK</text>
+        <text class="legend-item-text" x="268" y="292">foreign key</text>
+        <text class="legend-item-text" x="400" y="292">cardinality is written at both ends</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

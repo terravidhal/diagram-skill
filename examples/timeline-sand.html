@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<!-- variants: sand, ocean -->
+<html lang="en" data-theme="auto" data-palette="sand">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Incident timeline — Diagramforge</title>
+  <style>
+/* Diagramforge theme sheet.
+   Set data-theme="auto|light|dark" and data-palette="paper|midnight|ocean|forest|
+   sand|slate|mono|contrast|brand" on <html>. Only the three base colours change;
+   every other role is derived with color-mix(). */
+
+:root {
+  color-scheme: light;
+
+  /* Base palette: warm paper. */
+  --paper: #F7F5EF;
+  --ink: #20242B;
+  --accent: #B4451F;
+
+  /* Brand inputs, overridden inline when data-palette="brand". */
+  --brand-paper: #F7F5EF;
+  --brand-ink: #20242B;
+  --brand-accent: #B4451F;
+
+  /* Derived roles. These recompute when --paper, --ink, or --accent change. */
+  --surface: color-mix(in srgb, var(--paper) 94%, var(--ink));
+  --mask: color-mix(in srgb, var(--ink) 1%, var(--paper));
+  --muted: color-mix(in srgb, var(--ink) 72%, var(--paper));
+  --soft: color-mix(in srgb, var(--ink) 67%, var(--paper));
+  --line: color-mix(in srgb, var(--ink) 14%, var(--paper));
+  --line-strong: color-mix(in srgb, var(--ink) 55%, var(--paper));
+  --accent-soft: color-mix(in srgb, var(--accent) 10%, var(--paper));
+  --accent-line: color-mix(in srgb, var(--accent) 55%, var(--paper));
+  --link: var(--accent);
+  --link-soft: color-mix(in srgb, var(--link) 10%, var(--paper));
+
+  /* Status roles, always paired with a word or a symbol. */
+  --ok: #2F7A4F;
+  --warn: #8A5A00;
+  --danger: #A62F25;
+
+  /* Multi-series charts only. */
+  --series-1: #5F7A4E;
+  --series-2: #3F6488;
+  --series-3: #8A642B;
+  --series-4: #8A5238;
+  --series-5: #5A5068;
+
+  /* Geometry. */
+  --grid: 4px;
+  --radius-sm: 2px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --stroke-hair: 0.8px;
+  --stroke-1: 1px;
+  --stroke-2: 1.25px;
+
+  /* Type stacks: no network request, no web-font dependency. */
+  --font-title: ui-serif, Georgia, "Times New Roman", serif;
+  --font-name: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-tech: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
+    monospace;
+}
+
+/* Operating-system dark, unless the document forces light. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #14171C;
+    --ink: #F2EFE7;
+    --accent: #F08A5D;
+    --ok: #7FD1A0;
+    --warn: #F2C14E;
+    --danger: #FF8A7A;
+    --series-1: #9CB48E;
+    --series-2: #82A7CC;
+    --series-3: #D8B074;
+    --series-4: #D09478;
+    --series-5: #A99BB8;
+  }
+}
+
+/* Explicit dark. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #14171C;
+  --ink: #F2EFE7;
+  --accent: #F08A5D;
+  --ok: #7FD1A0;
+  --warn: #F2C14E;
+  --danger: #FF8A7A;
+  --series-1: #9CB48E;
+  --series-2: #82A7CC;
+  --series-3: #D8B074;
+  --series-4: #D09478;
+  --series-5: #A99BB8;
+}
+
+/* Explicit light, even when the OS is dark. */
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+/* --------------------------------------------------------------------------
+   Palettes. Each block sets only paper / ink / accent. Derived roles follow.
+   -------------------------------------------------------------------------- */
+
+:root[data-palette="paper"] {
+  color-scheme: light;
+  --paper: #F7F5EF;
+  --ink: #20242B;
+  --accent: #B4451F;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="paper"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #14171C;
+    --ink: #F2EFE7;
+    --accent: #F08A5D;
+  }
+}
+:root[data-palette="paper"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #14171C;
+  --ink: #F2EFE7;
+  --accent: #F08A5D;
+}
+
+:root[data-palette="midnight"] {
+  color-scheme: light;
+  --paper: #F2F4F7;
+  --ink: #111827;
+  --accent: #4F46E5;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="midnight"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0B1020;
+    --ink: #E8ECF4;
+    --accent: #8B9CFF;
+  }
+}
+:root[data-palette="midnight"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0B1020;
+  --ink: #E8ECF4;
+  --accent: #8B9CFF;
+}
+
+:root[data-palette="ocean"] {
+  color-scheme: light;
+  --paper: #F2F7FA;
+  --ink: #102A43;
+  --accent: #0B6E99;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="ocean"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #081A26;
+    --ink: #E6F0F5;
+    --accent: #4FB3D9;
+  }
+}
+:root[data-palette="ocean"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #081A26;
+  --ink: #E6F0F5;
+  --accent: #4FB3D9;
+}
+
+:root[data-palette="forest"] {
+  color-scheme: light;
+  --paper: #F4F7F1;
+  --ink: #1D2A22;
+  --accent: #2F6B4F;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="forest"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0F1A14;
+    --ink: #E9F0EA;
+    --accent: #6FBF94;
+  }
+}
+:root[data-palette="forest"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0F1A14;
+  --ink: #E9F0EA;
+  --accent: #6FBF94;
+}
+
+:root[data-palette="sand"] {
+  color-scheme: light;
+  --paper: #FAF6EE;
+  --ink: #2B241B;
+  --accent: #A35A2A;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="sand"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #1C1712;
+    --ink: #F4EBDD;
+    --accent: #D89A63;
+  }
+}
+:root[data-palette="sand"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #1C1712;
+  --ink: #F4EBDD;
+  --accent: #D89A63;
+}
+
+:root[data-palette="slate"] {
+  color-scheme: light;
+  --paper: #F3F4F6;
+  --ink: #1F2937;
+  --accent: #3B5BDB;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="slate"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #111827;
+    --ink: #E5E7EB;
+    --accent: #7C9CFF;
+  }
+}
+:root[data-palette="slate"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #111827;
+  --ink: #E5E7EB;
+  --accent: #7C9CFF;
+}
+
+:root[data-palette="mono"] {
+  color-scheme: light;
+  --paper: #FAFAF8;
+  --ink: #111111;
+  --accent: #111111;
+  --accent-soft: color-mix(in srgb, var(--ink) 8%, var(--paper));
+  --accent-line: color-mix(in srgb, var(--ink) 45%, var(--paper));
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="mono"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0D0D0D;
+    --ink: #F5F5F5;
+    --accent: #F5F5F5;
+  }
+}
+:root[data-palette="mono"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0D0D0D;
+  --ink: #F5F5F5;
+  --accent: #F5F5F5;
+}
+
+:root[data-palette="contrast"] {
+  color-scheme: light;
+  --paper: #FFFFFF;
+  --ink: #000000;
+  --accent: #0033A0;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="contrast"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #000000;
+    --ink: #FFFFFF;
+    --accent: #66B2FF;
+  }
+}
+:root[data-palette="contrast"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #000000;
+  --ink: #FFFFFF;
+  --accent: #66B2FF;
+}
+
+/* Brand: three inline inputs, derived light and dark. */
+:root[data-palette="brand"] {
+  color-scheme: light;
+  --paper: var(--brand-paper);
+  --ink: var(--brand-ink);
+  --accent: var(--brand-accent);
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="brand"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: color-mix(in srgb, var(--brand-ink) 88%, #05070A);
+    --ink: color-mix(in srgb, var(--brand-paper) 92%, #FFFFFF);
+    --accent: color-mix(in srgb, var(--brand-accent) 72%, #FFFFFF);
+  }
+}
+:root[data-palette="brand"][data-theme="dark"] {
+  color-scheme: dark;
+  --paper: color-mix(in srgb, var(--brand-ink) 88%, #05070A);
+  --ink: color-mix(in srgb, var(--brand-paper) 92%, #FFFFFF);
+  --accent: color-mix(in srgb, var(--brand-accent) 72%, #FFFFFF);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  padding: 40px 24px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-name);
+}
+.frame { max-width: 1120px; margin: 0 auto; }
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-family: var(--font-tech);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 0 0 8px;
+  font-family: var(--font-title);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -.01em;
+}
+.lede {
+  max-width: 64ch;
+  margin: 0 0 24px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.diagram-container { width: 100%; overflow-x: auto; }
+svg.diagram { width: 100%; min-width: 960px; height: auto; display: block; }
+.diagram text { font-family: var(--font-name); }
+.diagram-bg { fill: var(--paper); }
+.node-mask { fill: var(--paper); }
+.node-box {
+  fill: var(--surface);
+  stroke: var(--line-strong);
+  stroke-width: var(--stroke-1);
+}
+.node-box--focal { fill: var(--accent-soft); stroke: var(--accent); stroke-width: var(--stroke-2); }
+.node-box--backend { fill: var(--surface); stroke: var(--line-strong); }
+.node-box--store { fill: color-mix(in srgb, var(--ink) 5%, var(--paper)); stroke: var(--muted); }
+.node-box--external { fill: color-mix(in srgb, var(--ink) 3%, var(--paper)); stroke: color-mix(in srgb, var(--ink) 30%, var(--paper)); }
+.node-box--input { fill: color-mix(in srgb, var(--muted) 10%, var(--paper)); stroke: var(--soft); }
+.node-box--optional { fill: color-mix(in srgb, var(--ink) 2%, var(--paper)); stroke: var(--line-strong); stroke-dasharray: 4 3; }
+.node-box--security { fill: color-mix(in srgb, var(--accent) 5%, var(--paper)); stroke: var(--accent-line); stroke-dasharray: 4 4; }
+.node-name { fill: var(--ink); font-size: 13px; font-weight: 600; }
+.node-tech { fill: var(--muted); font-family: var(--font-tech); font-size: 9px; }
+.node-tag { fill: var(--soft); font-family: var(--font-tech); font-size: 8px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+.node-tag-box { fill: none; stroke: var(--line-strong); stroke-width: var(--stroke-hair); }
+.edge { fill: none; stroke: var(--muted); stroke-width: var(--stroke-1); }
+.edge--accent { stroke: var(--accent); stroke-width: var(--stroke-2); }
+.edge--link { stroke: var(--link); }
+.edge--dashed { stroke-dasharray: 4 3; }
+.edge--hair { stroke: var(--line); stroke-width: var(--stroke-hair); }
+.edge-label { fill: var(--muted); font-family: var(--font-tech); font-size: 8px; letter-spacing: .06em; }
+.label-mask { fill: var(--paper); }
+.label-mask--zone { fill: var(--mask); }
+.zone { fill: color-mix(in srgb, var(--ink) 1%, transparent); stroke: var(--line); stroke-width: var(--stroke-hair); }
+.zone-label { fill: var(--soft); font-family: var(--font-tech); font-size: 8px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+.legend-rule { stroke: var(--line); stroke-width: var(--stroke-hair); }
+.legend-label { fill: var(--muted); font-family: var(--font-tech); font-size: 8px; letter-spacing: .12em; text-transform: uppercase; }
+.legend-item-text { fill: var(--muted); font-family: var(--font-tech); font-size: 8px; }
+.marker-muted { fill: var(--muted); }
+.marker-accent { fill: var(--accent); }
+.marker-link { fill: var(--link); }
+.marker-open { fill: none; stroke: var(--muted); stroke-width: 1.2; }
+.lifeline { stroke: color-mix(in srgb, var(--ink) 22%, var(--paper)); stroke-width: 1; stroke-dasharray: 3 3; }
+.stem { stroke: color-mix(in srgb, var(--ink) 22%, var(--paper)); stroke-width: 1; }
+.activation { fill: color-mix(in srgb, var(--ink) 6%, var(--paper)); stroke: var(--muted); stroke-width: var(--stroke-hair); }
+.entity-head { fill: var(--surface); stroke: var(--line-strong); stroke-width: var(--stroke-1); }
+.entity-rule { stroke: var(--line); stroke-width: var(--stroke-hair); }
+.field-name { fill: var(--ink); font-size: 10px; }
+.field-type { fill: var(--soft); font-family: var(--font-tech); font-size: 8px; }
+.field-key { fill: var(--muted); font-family: var(--font-tech); font-size: 8px; font-weight: 600; }
+.axis { stroke: var(--line-strong); stroke-width: var(--stroke-1); }
+.axis-label { fill: var(--muted); font-family: var(--font-tech); font-size: 8px; letter-spacing: .1em; text-transform: uppercase; }
+.tick { stroke: var(--line); stroke-width: var(--stroke-hair); }
+.dot { fill: var(--muted); }
+.dot--focal { fill: var(--accent); }
+.bar { fill: var(--muted); }
+.bar--focal { fill: var(--accent); }
+.series-1 { fill: var(--series-1); stroke: var(--series-1); }
+.series-2 { fill: var(--series-2); stroke: var(--series-2); }
+.series-3 { fill: var(--series-3); stroke: var(--series-3); }
+.series-4 { fill: var(--series-4); stroke: var(--series-4); }
+.series-5 { fill: var(--series-5); stroke: var(--series-5); }
+.status-ok { fill: var(--ok); }
+.status-warn { fill: var(--warn); }
+.status-danger { fill: var(--danger); }
+.annotation { fill: var(--ink); font-family: var(--font-title); font-size: 14px; font-style: italic; }
+.focus-halo { display: none; fill: var(--accent); opacity: .2; }
+[data-animate="focus"] .focus-halo { display: block; }
+.flow-token { display: none; fill: var(--accent); }
+[data-animate="flow"] .flow-token { display: block; }
+@media (max-width: 720px) {
+  body { padding: 24px 16px; }
+  .lede { font-size: 13px; }
+}
+@media print {
+  body { padding: 0; }
+  .diagram-container { overflow-x: visible; }
+  svg.diagram { min-width: 0; }
+}
+/* Diagramforge motion sheet.
+   Optional. Set data-animate="none|draw|reveal|flow|focus|combo" on the root SVG.
+   The diagram is complete before any animation: motion is decorative. */
+
+:root {
+  --dur: 700ms;
+  --stagger: 160ms;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --flow-dur: 4s;
+  --focus-dur: 2.4s;
+}
+
+/* draw: a stroke draws from its start to its end. */
+[data-animate="draw"] .edge,
+[data-animate="combo"] .edge {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: df-draw var(--dur) var(--ease) both;
+  animation-delay: calc(var(--order, 0) * var(--stagger));
+}
+@keyframes df-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* reveal: items appear in narrative order with a small rise. */
+[data-animate="reveal"] .node,
+[data-animate="combo"] .node {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: df-reveal var(--dur) var(--ease) both;
+  animation-delay: calc(var(--order, 0) * var(--stagger));
+}
+@keyframes df-reveal {
+  to { opacity: 1; transform: none; }
+}
+
+/* flow: dashes circulate on explicitly marked edges. */
+[data-animate="flow"] .edge[data-flow] {
+  stroke-dasharray: 6 10;
+  animation: df-flow var(--flow-dur) linear infinite;
+}
+@keyframes df-flow {
+  to { stroke-dashoffset: -64; }
+}
+
+/* focus: one quiet halo on the focal node. */
+[data-animate="focus"] .focus-halo {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: df-focus var(--focus-dur) ease-in-out infinite;
+}
+@keyframes df-focus {
+  0%, 100% { opacity: .15; transform: scale(.98); }
+  50%      { opacity: .55; transform: scale(1.04); }
+}
+
+/* The complete static frame. */
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] *,
+  [data-animate] *::before,
+  [data-animate] *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  [data-animate] .edge { stroke-dashoffset: 0 !important; }
+  [data-animate="draw"] .edge:not(.edge--dashed),
+  [data-animate="combo"] .edge:not(.edge--dashed),
+  [data-animate="flow"] .edge[data-flow]:not(.edge--dashed) { stroke-dasharray: none !important; }
+  [data-animate] .node { opacity: 1 !important; transform: none !important; }
+  [data-animate] .focus-halo,
+  [data-animate] .flow-token { display: none !important; }
+}
+
+[data-static="true"] *,
+[data-static="true"] *::before,
+[data-static="true"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+[data-static="true"] .edge { stroke-dashoffset: 0 !important; }
+[data-static="true"] .edge[data-flow]:not(.edge--dashed) { stroke-dasharray: none !important; }
+[data-static="true"] .node { opacity: 1 !important; transform: none !important; }
+[data-static="true"] .focus-halo,
+[data-static="true"] .flow-token { display: none !important; }
+
+@media print {
+  [data-animate] *,
+  [data-animate] *::before,
+  [data-animate] *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  [data-animate] .edge { stroke-dashoffset: 0 !important; }
+  [data-animate="draw"] .edge:not(.edge--dashed),
+  [data-animate="combo"] .edge:not(.edge--dashed),
+  [data-animate="flow"] .edge[data-flow]:not(.edge--dashed) { stroke-dasharray: none !important; }
+  [data-animate] .node { opacity: 1 !important; transform: none !important; }
+  [data-animate] .focus-halo,
+  [data-animate] .flow-token { display: none !important; }
+}
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Timeline · Incident</p>
+    <h1>From deploy to incident closed</h1>
+    <p class="lede">Six wall-clock events on a proportional axis. The rollback is the only accent; the cards alternate to keep the axis readable.</p>
+
+    <div class="diagram-container">
+      <svg class="diagram" data-slug="timeline" data-animate="reveal"
+           viewBox="0 0 960 440" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-labelledby="timeline-title timeline-desc">
+        <title id="timeline-title">Incident timeline</title>
+        <desc id="timeline-desc">Six events from a 09:02 deploy to a 09:48 close on a proportional wall-clock axis, with the rollback at 09:27 highlighted.</desc>
+
+        <rect class="diagram-bg" width="960" height="440"/>
+
+        <line class="axis" x1="96" y1="240" x2="896" y2="240"/>
+        <text class="axis-label" x="96" y="276">09:00</text>
+        <text class="axis-label" x="896" y="276" text-anchor="end">10:00</text>
+
+        <g class="node" data-node="deploy" style="--order:0">
+          <rect class="node-mask" x="44" y="92" width="160" height="72" rx="6"/>
+          <rect class="node-box" x="44" y="92" width="160" height="72" rx="6"/>
+          <text class="node-tag" x="56" y="110">09:02</text>
+          <text class="node-name" x="56" y="132">Deploy v42</text>
+          <text class="node-tech" x="56" y="148">canary · 10%</text>
+          <line class="stem" x1="124" y1="164" x2="124" y2="232"/>
+          <circle class="dot" cx="124" cy="240" r="5"/>
+        </g>
+
+        <g class="node" data-node="error" style="--order:1">
+          <rect class="node-mask" x="204" y="296" width="160" height="72" rx="6"/>
+          <rect class="node-box" x="204" y="296" width="160" height="72" rx="6"/>
+          <text class="node-tag" x="216" y="314">09:14</text>
+          <text class="node-name" x="216" y="336">Error rate 0.2%</text>
+          <text class="node-tech" x="216" y="352">4xx spike</text>
+          <line class="stem" x1="284" y1="248" x2="284" y2="296"/>
+          <circle class="dot" cx="284" cy="240" r="5"/>
+        </g>
+
+        <g class="node" data-node="alert" style="--order:2">
+          <rect class="node-mask" x="296" y="92" width="160" height="72" rx="6"/>
+          <rect class="node-box" x="296" y="92" width="160" height="72" rx="6"/>
+          <text class="node-tag" x="308" y="110">09:21</text>
+          <text class="node-name" x="308" y="132">Pager alert</text>
+          <text class="node-tech" x="308" y="148">on-call</text>
+          <line class="stem" x1="376" y1="164" x2="376" y2="232"/>
+          <circle class="dot" cx="376" cy="240" r="5"/>
+        </g>
+
+        <g class="node" data-node="rollback" style="--order:3">
+          <rect class="node-mask" x="376" y="296" width="160" height="72" rx="6"/>
+          <rect class="node-box node-box--focal" x="376" y="296" width="160" height="72" rx="6"/>
+          <text class="node-tag" x="388" y="314">09:27</text>
+          <text class="node-name" x="388" y="336">Rollback starts</text>
+          <text class="node-tech" x="388" y="352">revert 41</text>
+          <line class="stem" x1="456" y1="248" x2="456" y2="296"/>
+          <circle class="dot dot--focal" cx="456" cy="240" r="7"/>
+        </g>
+
+        <g class="node" data-node="recovered" style="--order:4">
+          <rect class="node-mask" x="468" y="92" width="160" height="72" rx="6"/>
+          <rect class="node-box" x="468" y="92" width="160" height="72" rx="6"/>
+          <text class="node-tag" x="480" y="110">09:34</text>
+          <text class="node-name" x="480" y="132">Error rate normal</text>
+          <text class="node-tech" x="480" y="148">0.02%</text>
+          <line class="stem" x1="548" y1="164" x2="548" y2="232"/>
+          <circle class="dot" cx="548" cy="240" r="5"/>
+        </g>
+
+        <g class="node" data-node="closed" style="--order:5">
+          <rect class="node-mask" x="656" y="296" width="160" height="72" rx="6"/>
+          <rect class="node-box" x="656" y="296" width="160" height="72" rx="6"/>
+          <text class="node-tag" x="668" y="314">09:48</text>
+          <text class="node-name" x="668" y="336">Incident closed</text>
+          <text class="node-tech" x="668" y="352">postmortem</text>
+          <line class="stem" x1="736" y1="248" x2="736" y2="296"/>
+          <circle class="dot" cx="736" cy="240" r="5"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

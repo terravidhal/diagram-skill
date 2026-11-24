@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!-- variants: slate, paper -->
+<html lang="en" data-theme="auto" data-palette="@@PALETTE@@">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CI/CD pipeline with a security gate</title>
+  <style>
+/* @@THEMES@@ */
+/* @@BASE@@ */
+/* @@MOTION@@ */
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Pipeline · Delivery</p>
+    <h1>CI/CD pipeline</h1>
+    <p class="lede">Six stages and one failure path. Every gate blocks promotion; rollback is a first-class state, not an afterthought.</p>
+
+    <div class="diagram-container">
+      <svg class="diagram" data-slug="ci" data-animate="flow"
+           viewBox="0 0 960 480" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-labelledby="ci-title ci-desc">
+        <title id="ci-title">CI/CD pipeline with a security gate</title>
+        <desc id="ci-desc">A commit is built, tested, scanned, deployed to staging, and released to production; a failing test rolls back to the previous version.</desc>
+
+        <defs>
+          <marker id="ci-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-muted" points="0 0, 8 3, 0 6"/>
+          </marker>
+          <marker id="ci-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-accent" points="0 0, 8 3, 0 6"/>
+          </marker>
+        </defs>
+
+        <rect class="diagram-bg" width="960" height="480"/>
+
+        <line class="edge" data-flow="true" x1="168" y1="176" x2="208" y2="176" marker-end="url(#ci-arrow)"/>
+        <line class="edge" data-flow="true" x1="344" y1="176" x2="384" y2="176" marker-end="url(#ci-arrow)"/>
+        <line class="edge" data-flow="true" x1="520" y1="176" x2="560" y2="176" marker-end="url(#ci-arrow)"/>
+        <line class="edge" data-flow="true" x1="696" y1="176" x2="736" y2="176" marker-end="url(#ci-arrow)"/>
+        <line class="edge edge--accent" data-flow="true" x1="804" y1="208" x2="804" y2="320" marker-end="url(#ci-arrow-accent)"/>
+        <path class="edge edge--dashed" data-flow="true" d="M 452,208 V 260 Q 452,268 460,268 H 620 Q 628,268 628,276 V 320" marker-end="url(#ci-arrow)"/>
+
+        <g class="edge-label-group">
+          <rect class="label-mask" x="176" y="156" width="24" height="12" rx="2"/>
+          <text class="edge-label" x="180" y="165">PUSH</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="352" y="156" width="24" height="12" rx="2"/>
+          <text class="edge-label" x="356" y="165">TEST</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="528" y="156" width="24" height="12" rx="2"/>
+          <text class="edge-label" x="532" y="165">SCAN</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="704" y="156" width="24" height="12" rx="2"/>
+          <text class="edge-label" x="708" y="165">SHIP</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="812" y="248" width="48" height="12" rx="2"/>
+          <text class="edge-label" x="820" y="257">RELEASE</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask" x="472" y="288" width="32" height="12" rx="2"/>
+          <text class="edge-label" x="480" y="297">FAIL</text>
+        </g>
+
+        <g class="node" data-node="commit">
+          <rect class="node-mask" x="32" y="144" width="136" height="64" rx="6"/>
+          <rect class="node-box node-box--input" x="32" y="144" width="136" height="64" rx="6"/>
+          <text class="node-tag" x="44" y="162">TRIGGER</text>
+          <text class="node-name" x="100" y="182" text-anchor="middle">Commit</text>
+          <text class="node-tech" x="100" y="198" text-anchor="middle">push · main</text>
+        </g>
+
+        <g class="node" data-node="build">
+          <rect class="node-mask" x="208" y="144" width="136" height="64" rx="6"/>
+          <rect class="node-box node-box--backend" x="208" y="144" width="136" height="64" rx="6"/>
+          <text class="node-tag" x="220" y="162">JOB</text>
+          <text class="node-name" x="276" y="182" text-anchor="middle">Build</text>
+          <text class="node-tech" x="276" y="198" text-anchor="middle">image · 4m</text>
+        </g>
+
+        <g class="node" data-node="test">
+          <rect class="node-mask" x="384" y="144" width="136" height="64" rx="6"/>
+          <rect class="node-box node-box--backend" x="384" y="144" width="136" height="64" rx="6"/>
+          <text class="node-tag" x="396" y="162">JOB</text>
+          <text class="node-name" x="452" y="182" text-anchor="middle">Test</text>
+          <text class="node-tech" x="452" y="198" text-anchor="middle">unit · e2e</text>
+        </g>
+
+        <g class="node" data-node="security">
+          <rect class="node-mask" x="560" y="144" width="136" height="64" rx="6"/>
+          <rect class="node-box node-box--security" x="560" y="144" width="136" height="64" rx="6"/>
+          <text class="node-tag" x="572" y="162">GATE</text>
+          <text class="node-name" x="628" y="182" text-anchor="middle">Security</text>
+          <text class="node-tech" x="628" y="198" text-anchor="middle">scan · policy</text>
+        </g>
+
+        <g class="node" data-node="staging">
+          <rect class="node-mask" x="736" y="144" width="136" height="64" rx="6"/>
+          <rect class="node-box node-box--store" x="736" y="144" width="136" height="64" rx="6"/>
+          <text class="node-tag" x="748" y="162">ENV</text>
+          <text class="node-name" x="804" y="182" text-anchor="middle">Staging</text>
+          <text class="node-tech" x="804" y="198" text-anchor="middle">smoke · 10m</text>
+        </g>
+
+        <g class="node" data-node="production">
+          <rect class="node-mask" x="736" y="320" width="136" height="64" rx="6"/>
+          <rect class="node-box node-box--focal" x="736" y="320" width="136" height="64" rx="6"/>
+          <text class="node-tag" x="748" y="338">ENV</text>
+          <text class="node-name" x="804" y="358" text-anchor="middle">Production</text>
+          <text class="node-tech" x="804" y="374" text-anchor="middle">canary · 5%</text>
+        </g>
+
+        <g class="node" data-node="rollback">
+          <rect class="node-mask" x="560" y="320" width="136" height="64" rx="6"/>
+          <rect class="node-box node-box--external" x="560" y="320" width="136" height="64" rx="6"/>
+          <text class="node-tag" x="572" y="338">RECOVERY</text>
+          <text class="node-name" x="628" y="358" text-anchor="middle">Rollback</text>
+          <text class="node-tech" x="628" y="374" text-anchor="middle">previous · v41</text>
+        </g>
+
+        <text class="annotation" x="32" y="448">The security gate is a hard stop: a failed scan cannot promote, and a failed test rolls back.</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

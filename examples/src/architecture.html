@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!-- variants: ocean, sand -->
+<html lang="en" data-theme="auto" data-palette="@@PALETTE@@">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout request path — Diagramforge</title>
+  <style>
+/* @@THEMES@@ */
+/* @@BASE@@ */
+/* @@MOTION@@ */
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Architecture · Checkout</p>
+    <h1>Checkout request path</h1>
+    <p class="lede">A browser request reaches the checkout service through the edge, then fans out to a cache, a primary store, the payment provider, and an async webhook worker.</p>
+
+    <div class="diagram-container">
+      <svg class="diagram" data-slug="checkout" data-animate="none"
+           viewBox="0 0 960 600" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-labelledby="checkout-title checkout-desc">
+        <title id="checkout-title">Checkout request path</title>
+        <desc id="checkout-desc">A browser reaches an API gateway and a checkout service inside a payment boundary, then reads a cache, writes a primary store, calls a payment provider, and emits an async webhook event.</desc>
+
+        <defs>
+          <marker id="checkout-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-muted" points="0 0, 8 3, 0 6"/>
+          </marker>
+          <marker id="checkout-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon class="marker-accent" points="0 0, 8 3, 0 6"/>
+          </marker>
+        </defs>
+
+        <rect class="diagram-bg" width="960" height="600"/>
+
+        <rect class="zone" x="32" y="216" width="176" height="128" rx="8"/>
+        <g class="zone-label-group">
+          <rect class="label-mask label-mask--zone" x="48" y="224" width="72" height="12" rx="2"/>
+          <text class="zone-label" x="84" y="233" text-anchor="middle">CLIENT</text>
+        </g>
+
+        <rect class="zone" x="232" y="216" width="176" height="128" rx="8"/>
+        <g class="zone-label-group">
+          <rect class="label-mask label-mask--zone" x="248" y="224" width="72" height="12" rx="2"/>
+          <text class="zone-label" x="284" y="233" text-anchor="middle">EDGE</text>
+        </g>
+
+        <rect class="zone" x="416" y="64" width="448" height="464" rx="8"/>
+        <g class="zone-label-group">
+          <rect class="label-mask label-mask--zone" x="432" y="72" width="132" height="12" rx="2"/>
+          <text class="zone-label" x="498" y="81" text-anchor="middle">PAYMENT BOUNDARY</text>
+        </g>
+
+        <line class="edge" x1="192" y1="280" x2="248" y2="280" marker-end="url(#checkout-arrow)"/>
+        <line class="edge edge--accent" x1="392" y1="280" x2="448" y2="280" marker-end="url(#checkout-arrow-accent)"/>
+
+        <path class="edge" d="M 528,248 V 160" marker-end="url(#checkout-arrow)"/>
+        <path class="edge" d="M 608,264 H 640 Q 648,264 648,256 V 200 Q 648,192 656,192 H 688" marker-end="url(#checkout-arrow)"/>
+        <path class="edge" d="M 608,296 H 640 Q 648,296 648,304 V 360 Q 648,368 656,368 H 688" marker-end="url(#checkout-arrow)"/>
+        <path class="edge" d="M 528,312 V 432" marker-end="url(#checkout-arrow)"/>
+        <path class="edge edge--dashed" d="M 448,464 H 440 Q 432,464 432,456 V 304 Q 432,296 440,296 H 448" marker-end="url(#checkout-arrow)"/>
+
+        <g class="edge-label-group">
+          <rect class="label-mask" x="196" y="260" width="48" height="12" rx="2"/>
+          <text class="edge-label" x="220" y="269" text-anchor="middle">HTTPS</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask label-mask--zone" x="396" y="260" width="48" height="12" rx="2"/>
+          <text class="edge-label" x="420" y="269" text-anchor="middle">POST</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask label-mask--zone" x="536" y="196" width="72" height="12" rx="2"/>
+          <text class="edge-label" x="540" y="205">AUTHORIZE</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask label-mask--zone" x="656" y="228" width="64" height="12" rx="2"/>
+          <text class="edge-label" x="664" y="237">GET CART</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask label-mask--zone" x="656" y="320" width="56" height="12" rx="2"/>
+          <text class="edge-label" x="664" y="329">WRITE</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask label-mask--zone" x="536" y="368" width="80" height="12" rx="2"/>
+          <text class="edge-label" x="544" y="377">EMIT EVENT</text>
+        </g>
+        <g class="edge-label-group">
+          <rect class="label-mask label-mask--zone" x="368" y="368" width="56" height="12" rx="2"/>
+          <text class="edge-label" x="420" y="377" text-anchor="end">STATUS</text>
+        </g>
+
+        <g class="node" data-node="browser">
+          <rect class="node-mask" x="48" y="248" width="144" height="64" rx="6"/>
+          <rect class="node-box node-box--input" x="48" y="248" width="144" height="64" rx="6"/>
+          <text class="node-tag" x="60" y="266">USER</text>
+          <text class="node-name" x="120" y="284" text-anchor="middle">Browser</text>
+          <text class="node-tech" x="120" y="300" text-anchor="middle">web · https</text>
+        </g>
+
+        <g class="node" data-node="gateway">
+          <rect class="node-mask" x="248" y="248" width="144" height="64" rx="6"/>
+          <rect class="node-box node-box--backend" x="248" y="248" width="144" height="64" rx="6"/>
+          <text class="node-tag" x="260" y="266">PROXY</text>
+          <text class="node-name" x="320" y="284" text-anchor="middle">API gateway</text>
+          <text class="node-tech" x="320" y="300" text-anchor="middle">:443 · TLS</text>
+        </g>
+
+        <g class="node" data-node="checkout">
+          <rect class="node-mask" x="448" y="248" width="160" height="64" rx="6"/>
+          <rect class="node-box node-box--focal" x="448" y="248" width="160" height="64" rx="6"/>
+          <text class="node-tag" x="460" y="266">SERVICE</text>
+          <text class="node-name" x="528" y="284" text-anchor="middle">Checkout</text>
+          <text class="node-tech" x="528" y="300" text-anchor="middle">checkout · :8080</text>
+        </g>
+
+        <g class="node" data-node="payment">
+          <rect class="node-mask" x="448" y="96" width="160" height="64" rx="6"/>
+          <rect class="node-box node-box--external" x="448" y="96" width="160" height="64" rx="6"/>
+          <text class="node-tag" x="460" y="114">EXTERNAL</text>
+          <text class="node-name" x="528" y="132" text-anchor="middle">Payment provider</text>
+          <text class="node-tech" x="528" y="148" text-anchor="middle">REST · sandbox</text>
+        </g>
+
+        <g class="node" data-node="redis">
+          <rect class="node-mask" x="688" y="160" width="144" height="64" rx="6"/>
+          <rect class="node-box node-box--store" x="688" y="160" width="144" height="64" rx="6"/>
+          <text class="node-tag" x="700" y="178">STORE</text>
+          <text class="node-name" x="760" y="196" text-anchor="middle">Redis</text>
+          <text class="node-tech" x="760" y="212" text-anchor="middle">cache · cart</text>
+        </g>
+
+        <g class="node" data-node="postgres">
+          <rect class="node-mask" x="688" y="336" width="144" height="64" rx="6"/>
+          <rect class="node-box node-box--store" x="688" y="336" width="144" height="64" rx="6"/>
+          <text class="node-tag" x="700" y="354">STORE</text>
+          <text class="node-name" x="760" y="372" text-anchor="middle">Postgres</text>
+          <text class="node-tech" x="760" y="388" text-anchor="middle">primary · orders</text>
+        </g>
+
+        <g class="node" data-node="webhook">
+          <rect class="node-mask" x="448" y="432" width="160" height="64" rx="6"/>
+          <rect class="node-box node-box--backend" x="448" y="432" width="160" height="64" rx="6"/>
+          <text class="node-tag" x="460" y="450">WORKER</text>
+          <text class="node-name" x="528" y="468" text-anchor="middle">Webhook worker</text>
+          <text class="node-tech" x="528" y="484" text-anchor="middle">events · async</text>
+        </g>
+
+        <line class="legend-rule" x1="40" y1="556" x2="920" y2="556"/>
+        <text class="legend-label" x="40" y="576">LEGEND</text>
+        <rect class="node-box node-box--backend" x="128" y="568" width="12" height="8" rx="2"/>
+        <text class="legend-item-text" x="148" y="576">service</text>
+        <rect class="node-box node-box--store" x="232" y="568" width="12" height="8" rx="2"/>
+        <text class="legend-item-text" x="252" y="576">store</text>
+        <rect class="node-box node-box--external" x="324" y="568" width="12" height="8" rx="2"/>
+        <text class="legend-item-text" x="344" y="576">external</text>
+        <rect class="zone" x="444" y="568" width="16" height="8" rx="2"/>
+        <text class="legend-item-text" x="468" y="576">trust boundary</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

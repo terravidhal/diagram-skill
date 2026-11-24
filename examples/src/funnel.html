@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!-- variants: paper, ocean -->
+<html lang="en" data-theme="auto" data-palette="@@PALETTE@@">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trial-to-paid conversion funnel</title>
+  <style>
+/* @@THEMES@@ */
+/* @@BASE@@ */
+/* @@MOTION@@ */
+    .funnel-name { fill: var(--ink); font-size: 13px; font-weight: 600; }
+    .funnel-value { fill: var(--muted); font-family: var(--font-tech); font-size: 10px; }
+    .funnel-rate { fill: var(--soft); font-family: var(--font-tech); font-size: 9px; letter-spacing: .04em; }
+    .funnel-rate--focal { fill: var(--accent); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Funnel · Subscription</p>
+    <h1>Trial-to-paid conversion</h1>
+    <p class="lede">Five stages, four conversion rates. The activation step is the largest drop-off and the only accent.</p>
+
+    <div class="diagram-container">
+      <svg class="diagram" data-slug="funnel" data-animate="reveal"
+           viewBox="0 0 960 600" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-labelledby="funnel-title funnel-desc">
+        <title id="funnel-title">Trial-to-paid conversion funnel</title>
+        <desc id="funnel-desc">Of 48,000 visits, 12,000 sign up, 6,400 activate, 3,100 start a trial, and 1,200 become paying customers; activation is the largest drop.</desc>
+
+        <rect class="diagram-bg" width="960" height="600"/>
+
+        <text class="axis-label" x="64" y="56">STAGE</text>
+        <text class="axis-label" x="896" y="56" text-anchor="end">CONVERSION</text>
+
+        <g class="node" data-node="visits" style="--order:0">
+          <polygon class="node-mask" points="200,80 760,80 712,144 248,144"/>
+          <polygon class="node-box" points="200,80 760,80 712,144 248,144"/>
+          <text class="funnel-name" x="480" y="108" text-anchor="middle">Visits</text>
+          <text class="funnel-value" x="480" y="126" text-anchor="middle">48,000 sessions</text>
+        </g>
+        <text class="funnel-rate" x="784" y="116">100%</text>
+
+        <g class="node" data-node="signups" style="--order:1">
+          <polygon class="node-mask" points="248,168 712,168 664,232 296,232"/>
+          <polygon class="node-box" points="248,168 712,168 664,232 296,232"/>
+          <text class="funnel-name" x="480" y="196" text-anchor="middle">Signups</text>
+          <text class="funnel-value" x="480" y="214" text-anchor="middle">12,000 accounts</text>
+        </g>
+        <text class="funnel-rate" x="784" y="204">25% OF VISITS</text>
+
+        <g class="node" data-node="activated" style="--order:2">
+          <polygon class="node-mask" points="296,256 664,256 616,320 344,320"/>
+          <polygon class="node-box node-box--focal" points="296,256 664,256 616,320 344,320"/>
+          <text class="funnel-name" x="480" y="284" text-anchor="middle">Activated</text>
+          <text class="funnel-value" x="480" y="302" text-anchor="middle">6,400 accounts</text>
+        </g>
+        <text class="funnel-rate funnel-rate--focal" x="784" y="292">53% OF SIGNUPS</text>
+
+        <g class="node" data-node="trial" style="--order:3">
+          <polygon class="node-mask" points="344,344 616,344 568,408 392,408"/>
+          <polygon class="node-box" points="344,344 616,344 568,408 392,408"/>
+          <text class="funnel-name" x="480" y="372" text-anchor="middle">Trial started</text>
+          <text class="funnel-value" x="480" y="390" text-anchor="middle">3,100 accounts</text>
+        </g>
+        <text class="funnel-rate" x="784" y="380">48% OF ACTIVATED</text>
+
+        <g class="node" data-node="paid" style="--order:4">
+          <polygon class="node-mask" points="392,432 568,432 520,496 440,496"/>
+          <polygon class="node-box" points="392,432 568,432 520,496 440,496"/>
+          <text class="funnel-name" x="480" y="460" text-anchor="middle">Paid</text>
+          <text class="funnel-value" x="480" y="478" text-anchor="middle">1,200 accounts</text>
+        </g>
+        <text class="funnel-rate" x="784" y="468">39% OF TRIALS</text>
+
+        <text class="annotation" x="64" y="552">The activation step loses nearly half of all signups; fix onboarding before buying more traffic.</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!-- variants: sand, ocean -->
+<html lang="en" data-theme="auto" data-palette="@@PALETTE@@">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Incident timeline — Diagramforge</title>
+  <style>
+/* @@THEMES@@ */
+/* @@BASE@@ */
+/* @@MOTION@@ */
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Timeline · Incident</p>
+    <h1>From deploy to incident closed</h1>
+    <p class="lede">Six wall-clock events on a proportional axis. The rollback is the only accent; the cards alternate to keep the axis readable.</p>
+
+    <div class="diagram-container">
+      <svg class="diagram" data-slug="timeline" data-animate="reveal"
+           viewBox="0 0 960 440" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-labelledby="timeline-title timeline-desc">
+        <title id="timeline-title">Incident timeline</title>
+        <desc id="timeline-desc">Six events from a 09:02 deploy to a 09:48 close on a proportional wall-clock axis, with the rollback at 09:27 highlighted.</desc>
+
+        <rect class="diagram-bg" width="960" height="440"/>
+
+        <line class="axis" x1="96" y1="240" x2="896" y2="240"/>
+        <text class="axis-label" x="96" y="276">09:00</text>
+        <text class="axis-label" x="896" y="276" text-anchor="end">10:00</text>
+
+        <g class="node" data-node="deploy" style="--order:0">
+          <rect class="node-mask" x="44" y="92" width="160" height="72" rx="6"/>
+          <rect class="node-box" x="44" y="92" width="160" height="72" rx="6"/>
+          <text class="node-tag" x="56" y="110">09:02</text>
+          <text class="node-name" x="56" y="132">Deploy v42</text>
+          <text class="node-tech" x="56" y="148">canary · 10%</text>
+          <line class="stem" x1="124" y1="164" x2="124" y2="232"/>
+          <circle class="dot" cx="124" cy="240" r="5"/>
+        </g>
+
+        <g class="node" data-node="error" style="--order:1">
+          <rect class="node-mask" x="204" y="296" width="160" height="72" rx="6"/>
+          <rect class="node-box" x="204" y="296" width="160" height="72" rx="6"/>
+          <text class="node-tag" x="216" y="314">09:14</text>
+          <text class="node-name" x="216" y="336">Error rate 0.2%</text>
+          <text class="node-tech" x="216" y="352">4xx spike</text>
+          <line class="stem" x1="284" y1="248" x2="284" y2="296"/>
+          <circle class="dot" cx="284" cy="240" r="5"/>
+        </g>
+
+        <g class="node" data-node="alert" style="--order:2">
+          <rect class="node-mask" x="296" y="92" width="160" height="72" rx="6"/>
+          <rect class="node-box" x="296" y="92" width="160" height="72" rx="6"/>
+          <text class="node-tag" x="308" y="110">09:21</text>
+          <text class="node-name" x="308" y="132">Pager alert</text>
+          <text class="node-tech" x="308" y="148">on-call</text>
+          <line class="stem" x1="376" y1="164" x2="376" y2="232"/>
+          <circle class="dot" cx="376" cy="240" r="5"/>
+        </g>
+
+        <g class="node" data-node="rollback" style="--order:3">
+          <rect class="node-mask" x="376" y="296" width="160" height="72" rx="6"/>
+          <rect class="node-box node-box--focal" x="376" y="296" width="160" height="72" rx="6"/>
+          <text class="node-tag" x="388" y="314">09:27</text>
+          <text class="node-name" x="388" y="336">Rollback starts</text>
+          <text class="node-tech" x="388" y="352">revert 41</text>
+          <line class="stem" x1="456" y1="248" x2="456" y2="296"/>
+          <circle class="dot dot--focal" cx="456" cy="240" r="7"/>
+        </g>
+
+        <g class="node" data-node="recovered" style="--order:4">
+          <rect class="node-mask" x="468" y="92" width="160" height="72" rx="6"/>
+          <rect class="node-box" x="468" y="92" width="160" height="72" rx="6"/>
+          <text class="node-tag" x="480" y="110">09:34</text>
+          <text class="node-name" x="480" y="132">Error rate normal</text>
+          <text class="node-tech" x="480" y="148">0.02%</text>
+          <line class="stem" x1="548" y1="164" x2="548" y2="232"/>
+          <circle class="dot" cx="548" cy="240" r="5"/>
+        </g>
+
+        <g class="node" data-node="closed" style="--order:5">
+          <rect class="node-mask" x="656" y="296" width="160" height="72" rx="6"/>
+          <rect class="node-box" x="656" y="296" width="160" height="72" rx="6"/>
+          <text class="node-tag" x="668" y="314">09:48</text>
+          <text class="node-name" x="668" y="336">Incident closed</text>
+          <text class="node-tech" x="668" y="352">postmortem</text>
+          <line class="stem" x1="736" y1="248" x2="736" y2="296"/>
+          <circle class="dot" cx="736" cy="240" r="5"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

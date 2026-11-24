@@ -1,0 +1,26 @@
+{
+  "name": "diagramforge-skill",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Agent skill for self-contained HTML + SVG diagrams with runtime palettes, automatic light/dark, and pure CSS/SVG animation.",
+  "license": "MIT",
+  "scripts": {
+    "lint": "node scripts/check-skill.mjs && node scripts/check-contrast.mjs && node scripts/check-geometry.mjs && node scripts/check-motion.mjs && node scripts/check-provenance.mjs && node scripts/build-examples.mjs --check",
+    "lint:browser": "node scripts/check-browser.mjs",
+    "lint:provenance": "node scripts/check-provenance.mjs",
+    "lint:skill": "node scripts/check-skill.mjs",
+    "lint:contrast": "node scripts/check-contrast.mjs",
+    "lint:geometry": "node scripts/check-geometry.mjs",
+    "lint:motion": "node scripts/check-motion.mjs",
+    "lint:examples": "node scripts/build-examples.mjs",
+    "lint:examples:check": "node scripts/build-examples.mjs --check",
+    "lint:shots": "node scripts/screenshot.mjs",
+    "lint:demo": "node scripts/demo-gif.mjs",
+    "lint:setup": "npm install --no-audit --no-fund --ignore-scripts",
+    "shots": "node scripts/screenshot.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.48.0"
+  }
+}
